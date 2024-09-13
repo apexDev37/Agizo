@@ -1,0 +1,19 @@
+---
+include:
+  - path: db/local-admin.yaml
+    project_directory: .
+
+services:
+  web:
+    image: djangops:test
+    build:
+      target: env-testing
+    container_name: django_web_test
+    restart: unless-stopped
+    extends:
+      file: docker/compose/fragments/watch-spec.yaml
+      service: testing.watch
+
+  db:
+    networks:
+      - admin-back-tier

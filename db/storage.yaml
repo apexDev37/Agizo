@@ -1,0 +1,44 @@
+---
+include:
+  - path: db/secrets.yaml
+    project_directory: .
+
+x-db-overrides:
+  environment: &database-environment-secrets
+    - POSTGRES_DB_FILE=/run/secrets/db-name
+    - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    - POSTGRES_USER_FILE=/run/secrets/db-user
+
+services:
+  db:
+    image: postgres:16.3-alpine3.20
+    container_name: postgres_db
+    restart: unless-stopped
+    shm_size: 128mb
+    user: postgres
+    extends:
+      file: db/config/connection-params.yaml
+      service: db.interface
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - back-tier
+    expose:
+      - 5432
+    environment: *database-environment-secrets
+    env_file:
+      - path: .envs/postgres.env
+        required: false
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - "pg_isready -d $(cat /run/secrets/db-name) -U $(cat /run/secrets/db-user)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
+
+networks:
+  back-tier: {}

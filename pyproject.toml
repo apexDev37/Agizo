@@ -1,0 +1,277 @@
+# Guide (user-friendly):
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
+
+# Specification (technical, formal):
+# https://packaging.python.org/en/latest/specifications/pyproject-toml/
+
+# TOML Specification (technical, formal):
+# https://toml.io/en/latest
+
+
+# ======================================================================================
+
+[project]
+name = "djangops"
+version = "0.1.0"
+description = "A simple DevOps inspired template for perfectionists, with deadlines."
+readme = "README.md"
+
+# Specify which Python versions you support.
+requires-python = ">=3.10"
+
+license = {file = "LICENSE"}
+authors = [{name = "Eugene Mwangi", email = "mwangi.em37@gmail.com" },]
+maintainers = [
+  {name = "Eugene Mwangi", email = "mwangi.em37@gmail.com" },
+]
+
+# The following `project` metadata is specific to PyPI
+# to better support packages deployed on the platform.
+# Nevertheless, they have been included as metadata common
+# to Python developers for project semantics and future support
+# for Django apps intended to be packaged and distributed.
+# Feel free to omit them from your projecct.
+keywords = [ "template", "django", "devops", "development", ]
+
+classifiers = [
+  # How mature is this project? Common values are
+  #   3 - Alpha
+  #   4 - Beta
+  #   5 - Production/Stable
+  "Development Status :: 3 - Alpha",
+
+  # Indicate who your project is intended for
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Build Tools",
+
+  # Pick your license as you wish
+  "License :: OSI Approved :: MIT License",
+
+  "Framework :: Django :: 4.2",
+  "Framework :: Django :: 5.0",
+
+  "Natural Language :: English",
+
+  # Specify the Python versions you support here. In particular, ensure
+  # that you indicate you support Python 3. These classifiers are *not*
+  # checked by "pip install". See instead "requires-python" key in this file.
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+[project.urls]
+Homepage = "https://github.com/apexDev37/DjangOps"
+Repository = "https://github.com/apexDev37/DjangOps"
+Source = "https://github.com/apexDev37/DjangOps/tree/main/src"
+Documentation = "https://github.com/apexDev37/DjangOps/tree/main/docs"
+Changelog = "https://github.com/apexDev37/DjangOps/blob/main/CHANGELOG.md"
+"Bug Reports" = "https://github.com/apexDev37/DjangOps/issues"
+
+# ======================================================================================
+
+# For extensive bandit config:
+# See: https://bandit.readthedocs.io/en/latest/config.html
+[tool.bandit]
+targets = [ "src", ]
+exclude_dirs = [ "tests", "test_utils", ]
+
+# --- B201: flask_debug_true
+skips = [ "B201", ]
+
+# For extensive coverage config:
+# See: https://coverage.readthedocs.io/en/latest/config.html
+[tool.coverage.run]
+branch = true
+data_file = ".coverage"
+source = [ "src" ]
+omit = [
+    "*/config/settings/*",
+    "*/migrations/*",
+    "*/static/*",
+    "*/templates/*",
+    "*admin.py",
+    "*asgi.py",
+    "*urls.py",
+    "*wsgi.py",
+    "*manage.py",
+]
+
+[tool.coverage.report]
+ignore_errors = true
+include_namespace_packages = true
+precision = 2
+show_missing = true
+skip_empty = true
+exclude_also = [
+    "pragma: no cover",
+    "def __repr__",
+    "def __str__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "assert",
+    "if __name__ == '__main__':",
+    "class .*Protocol:",
+    "@(abc\\.)?abstractmethod",
+]
+
+# For extensive isort config options:
+# See: https://pycqa.github.io/isort/docs/configuration/options.html
+[tool.isort]
+py_version = "auto"
+profile = "black"
+balanced_wrapping = true
+include_trailing_comma = true
+indent = "    "
+line_length = 78
+use_parentheses = true
+skip = [ "migrations", ]
+
+# For extensive mypy config:
+# See: https://mypy.readthedocs.io/en/stable/config_file.html
+# And: https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
+[tool.mypy]
+mypy_path = ["$MYPY_CONFIG_FILE_DIR/"]
+explicit_package_bases = true
+ignore_missing_imports = false
+namespace_packages = true
+
+# --- Disallow dynamic typing
+disallow_any_expr = true
+disallow_any_explicit = true
+
+# --- Untyped definitions and calls
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+# --- Miscellaneous
+strict_equality = true
+extra_checks = true
+
+# --- Warning config
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+
+# --- Error message config
+pretty = true
+
+[[tool.mypy.overrides]]
+# --- Ignore Django boilerplate and settings
+module = [ "src/config.*", "tests/*" ]
+strict = false
+disable_error_code = [ "import-not-found", "import-untyped", "misc", ]
+
+# For extensive pytest config:
+# See: https://docs.pytest.org/en/7.1.x/reference/reference.html#ini-options-ref
+[tool.pytest.ini_options]
+minversion = "8.0"
+pythonpath = [".", "src"]
+django_find_project = false
+addopts = "-ra -v --strict-markers --ds=config.settings.testing --dist loadscope"
+FAIL_INVALID_TEMPLATE_VARS = true
+testpaths = [ "tests", ]
+
+# --- Enforce Django test naming convention/pattern
+python_files = [ "test_*.py", ]
+
+norecursedirs = [
+    ".*",
+    "__pycache__",
+    "build",
+    "dist",
+    "docs",
+    "migrations",
+    "requirements",
+    "resources",
+    "venv",
+]
+
+empty_parameter_set_mark = "xfail"
+required_plugins = [ "pytest-django>=4.0.0,<5.0.0", "pytest-xdist>=3.6.1,<4.0.0" ]
+
+# --- Additional markers to whitelist
+markers = [
+    # Core
+    "unit: marks a test of single, isolated, units of functionality (deselect with '-m \"not unit\"')",
+    "integration: marks a test of inter-module interaction and communication (deselect with '-m \"not integration\"')",
+    "acceptance: marks a test to verify business requirements and end-user needs are met (deselect with '-m \"not acceptance\"')",
+    "e2e: marks a test to simulate real-world scenarios of application flow from start to end (deselect with '-m \"not e2e\"')",
+    "smoke: marks a test of critical and core functionality of the application (deselect with '-m \"not smoke\"')",
+    # Environment
+    "in-memory: marks a test capable to use an in-memory database to speed-up execution (deselect with '-m \"not in-memory\"')",
+    "system: marks a test to run in a production-like environment (contrast to in-memory) (deselect with '-m \"not system\"')",
+    # Metrics
+    "slow: marks a test as slow (deselect with '-m \"not slow\"')",
+]
+
+# For more extensive ruff config
+# See: https://docs.astral.sh/ruff/settings
+[tool.ruff]
+target-version = "py310"
+fix = true
+
+#--- Recommended if using ruff in pre-commit.
+force-exclude = true
+
+src = ["src", "tests", "test_utils"]
+
+#--- Files to omit in addition to the standard set of exclusions.
+extend-exclude = [
+    ".env",
+    ".envrc",
+]
+
+[tool.ruff.lint]
+#--- Add rules and plugins to the default enforced rule set.
+extend-select = [
+    "B",      # flake8-bugbear
+    "BLE",    # flake8-blind-except
+    "C4",     # flake8-comprehensions
+    "D",      # pydocstyle
+    "DJ",     # flake8-django
+    "DTZ",    # flake8-datetimez
+    "EM",     # flake8-errmsg
+    "ERA001", # commented-out-code
+    "FBT",    # flake8-boolean-trap
+    "G",      # flake8-logging-format
+    "ISC",    # flake8-implicit-str-concat
+    "LOG",    # flake8-logging
+    "N",      # pep8-naming
+    "PT",     # flake8-pytest-style
+    "PTH",    # flake8-use-pathlib
+    "RUF100", # unused-noqa
+    "SIM",    # flake8-simplify
+    "T10",    # flake8-debugger
+    "T20",    # flake8-print
+    "TID",    # flake8-tidy-imports
+    "TRY",    # tryceratops
+    "UP",     # pyupgrade
+]
+
+ignore = [
+    "D102",   # undocumented-public-method
+    "D103",   # undocumented-public-function
+    "D104",   # undocumented-public-package
+    "D105",   # undocumented-magic-method
+    "UP007",  # support using type `Optional` (opinionated)
+]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+# Ban certain modules from being imported at module level, instead requiring
+# that they're imported lazily (e.g., within a condition or function definition).
+# - (debug_toolbar): Package to be used only in the `develop` environment.
+banned-module-level-imports = ["debug_toolbar",]
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"random".msg = "Prefer `secrets` lib for secure random generation. See PEP506: https://peps.python.org/pep-0506/"
+
+[tool.ruff.lint.per-file-ignores]
+"manage.py" = ["TRY003", "EM101",]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

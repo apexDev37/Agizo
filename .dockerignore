@@ -1,0 +1,83 @@
+# Ignore development and editor files
+.bandit
+.commitlintrc
+.editorconfig
+.env
+.git
+.gitattributes
+.gitignore
+.hadolint.yaml
+.isort.cfg
+.mypy.ini
+.mypy_cache/
+.pre-commit-config.yaml
+.pytest_cache
+**/__pycache__
+*.env
+*.pyc
+.envs/
+.ruff.toml
+.ruff_cache/
+.snyk
+.venv/
+
+# Ignore static files (can be collected separately)
+/static
+
+# Ignore media files (can be mounted or uploaded separately)
+/media
+
+# Ignore logs and temporary files
+*.log
+*.swp
+logs/
+
+# Ignore database files (can be mounted or managed separately)
+*.sqlite3
+
+# Ignore package managers files
+pip-lock.txt
+poetry.lock
+poetry.toml
+
+# Ignore Docker-related files
+.docker/
+.dockerignore
+compose.yaml
+docker/
+docker-compose.yaml
+docker-compose.yml
+**/Dockerfile
+**/*Dockerfile
+**/Dockerfile*
+
+# Ignore testing and CI files
+.codecov.yml
+.coverage
+.coveragerc
+*.coverage
+.pytest.ini
+.pytest_cache/
+.tox/
+nosetests.xml
+tox.ini
+
+# Ignore documentation files
+docs/
+LICENSE
+README.md
+
+# Ignore any other unnecessary files or directories specific to your project
+resources/
+
+# Exclude production-specific files (additional exclusions for production)
+
+# Exclude sensitive or secret files
+.key
+*password.txt
+**/secrets/
+
+# Exclude additional development files
+.dev/
+.vscode/
+Makefile
