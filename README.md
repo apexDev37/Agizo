@@ -5,10 +5,7 @@
 
 > A simple backend RESTful service to process orders and notify customers.
 
-<!-- markdownlint-disable MD033 -->
-<img src="./resources/docs/images/django.png" style="width:25%;" alt="Django™"/>
-<img src="./resources/docs/images/docker.png" style="width:29%;" alt="Docker™"/>
-<!-- markdownlint-disable MD033 -->
+## Introduction
 
 ### Preface
 
@@ -19,6 +16,35 @@ manage user authentication. All comments, feedback, and contributions are
 highly encouraged. I always eager to learn and hear from the community❤
 
 Learn more about the Django framework from the official [documentation].
+
+### Project Structure
+>
+> 🧭 Simple layout overview that highlights essential areas of the project for
+quick reference.
+<!-- markdownlint-disable MD013 -->
+```markdown
+.
+├── .github                             # Hosts workflows and actions (CI/CD)
+├── db                                  # Hosts db related config files.
+│   ├── config
+│   │   └── connection-params.yaml
+│   ├── secrets
+│   └── storage.yaml
+├── requirements                        # Hosts all project dependencies.
+├── src                                 # Hosts project source code (implicit namespace package).
+│   ├── config                          # The Django project (package).
+│   │   ├── settings                    # Django project environment settings (package).
+│   ├── Dockerfile
+│   └── manage.py
+├── test_utils                          # Importable test utilities (package).
+├── tests                               # Host all project tests (implicit namespace package).
+├── Makefile                            # Base project automation recipes.
+├── README.md  
+├── compose.yaml                        # Base local compose app model.
+├── pyproject.toml                      # Hosts project tooling configs.
+└── tox.ini                             # Automated test orchestration and interface.
+```
+<!-- markdownlint-enable MD013 -->
 
 ## Installing / Getting started
 
@@ -96,11 +122,8 @@ docker compose up -d
 network defined in the base `compose` file.
 
 Once the containers have been created and started, you can access the
-application at <http://localhost:8000>
-<img
-src="./resources/docs/images/successful-django-install.PNG"
-alt="Successful Django Install Page"
-/>
+application at <http://localhost:8000/>
+![Successful Django Install Page](./resources/docs/images/successful-django-install.PNG)
 
 ## Development
 
