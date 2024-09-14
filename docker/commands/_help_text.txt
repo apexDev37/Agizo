@@ -16,17 +16,17 @@
 # ------------------------------------------------------------------------------
 
 # Build target images.
-docker build --file src/Dockerfile --target final-stage -t djangops:base .
-docker build --file src/Dockerfile --target env-testing -t djangops:test .
-docker build --file src/Dockerfile --target env-develop -t djangops:dev .
+docker build --file src/Dockerfile --target final-stage -t agizo:base .
+docker build --file src/Dockerfile --target env-testing -t agizo:test .
+docker build --file src/Dockerfile --target env-develop -t agizo:dev .
 
 # Build target images without cached dependencies.
 docker build --file src/Dockerfile --no-cache \
-  --target final-stage -t djangops:base .
+  --target final-stage -t agizo:base .
 docker build --file src/Dockerfile --no-cache \
-  --target env-testing -t djangops:test .
+  --target env-testing -t agizo:test .
 docker build --file src/Dockerfile --no-cache \
-  --target env-develop -t djangops:dev .
+  --target env-develop -t agizo:dev .
 
 # ------------------------------------------------------------------------------
 # Compose

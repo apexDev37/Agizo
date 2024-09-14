@@ -7,7 +7,7 @@ include:
 
 services:
   web:
-    image: djangops:base
+    image: agizo:base
     build:
       context: .
       dockerfile: src/Dockerfile

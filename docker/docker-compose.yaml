@@ -1,5 +1,5 @@
 ---
-name: djangops
+name: agizo
 services:
   db:
     image: postgres:16.3-alpine3.20

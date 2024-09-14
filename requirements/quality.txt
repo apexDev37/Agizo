@@ -83,7 +83,7 @@ psycopg-binary==3.2.1
     # via -r requirements/test.txt
 pygments==2.18.0
     # via rich
-pytest==8.3.2
+pytest==8.3.3
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -99,9 +99,9 @@ pyyaml==6.0.2
     # via
     #   bandit
     #   pre-commit
-rich==13.8.0
+rich==13.8.1
     # via bandit
-ruff==0.6.4
+ruff==0.6.5
     # via -r requirements/quality.in
 sqlparse==0.5.1
     # via

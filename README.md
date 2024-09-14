@@ -1,23 +1,22 @@
-# DjangOps
+# Agizo
 <!-- markdownlint-disable MD013 -->
-[![Inline docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg?branch=master)](https://github.com/apexDev37/DjangOps/blob/main/README.md) [![Python version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?style=flat&logo=python&logoColor=yellow)](https://github.com/apexDev37/DjangOps/blob/main/tox.ini#L5) [![docker](https://img.shields.io/badge/docker-enabled-blue?style=flat&logo=docker&labelColor=white)](https://www.docker.com/products/docker-desktop/) [![Known Vulnerabilities](https://snyk.io/test/github/apexDev37/DjangOps/main/badge.svg)](https://snyk.io/test/github/apexDev37/DjangOps) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue.svg)](http://makeapullrequest.com) [![Activity](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/apexDev37/DjangOps/commits/main) [![Versioning](https://img.shields.io/badge/versioning-semver-black?logo=semver)](https://semver.org/) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit) [![Linter: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![Style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Inline docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg?branch=master)](https://github.com/apexDev37/Agizo/blob/main/README.md) [![Python version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?style=flat&logo=python&logoColor=yellow)](https://github.com/apexDev37/Agizo/blob/main/tox.ini#L5) [![docker](https://img.shields.io/badge/docker-enabled-blue?style=flat&logo=docker&labelColor=white)](https://www.docker.com/products/docker-desktop/) [![Known Vulnerabilities](https://snyk.io/test/github/apexDev37/Agizo/main/badge.svg)](https://snyk.io/test/github/apexDev37/Agizo) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue.svg)](http://makeapullrequest.com) [![Activity](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/apexDev37/Agizo/commits/main) [![Versioning](https://img.shields.io/badge/versioning-semver-black?logo=semver)](https://semver.org/) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit) [![Linter: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![Style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 <!-- markdownlint-enable MD013 -->
 
-> A simple devops-inspired template for Django applications setup with compose.
+> A simple backend RESTful service to process orders and notify customers.
 
 <!-- markdownlint-disable MD033 -->
 <img src="./resources/docs/images/django.png" style="width:25%;" alt="Django™"/>
 <img src="./resources/docs/images/docker.png" style="width:29%;" alt="Docker™"/>
 <!-- markdownlint-disable MD033 -->
 
-## Introduction
+### Preface
 
-If you need a quick start with Django and Compose, you're in the right place.
-DjangOps is a dev-ops-inspired template for perfectionists with deadlines,
-who also happen to love Django and compose! Spin up a local dev environment
-with modular custom settings in a few steps and focus on the value you want to
-build. All comments, feedback, and contributions are highly encouraged.
-I always love to hear and learn from the community❤
+This repo demonstrates a simple REST-centered backend service exposing
+endpoints to clients to create `customer` and `order` resources. It integrates
+with common third-party providers to serve notifications to customers and
+manage user authentication. All comments, feedback, and contributions are
+highly encouraged. I always eager to learn and hear from the community❤
 
 Learn more about the Django framework from the official [documentation].
 
@@ -45,7 +44,7 @@ You can clone this repo with the following command.
 
 ```bash
 # cd your/desired/target/dir
-git clone git@github.com:apexDev37/DjangOps.git my-project
+git clone git@github.com:apexDev37/Agizo.git my-project
 cd my-project
 ```
 
@@ -116,7 +115,7 @@ manage virtual environments.
 - Create a virtual environment
 
 ```bash
-mkvirtualenv -p python3.12 djangops-py312
+mkvirtualenv -p python3.12 agizo-py312
 ```
 
 > 🛈 This will create a fully managed venv and activate the virtual environment
@@ -128,7 +127,7 @@ any issue, manually activate it with the following command.
 - Activate the virtual environment
 
 ```bash
-workon djangops-py312
+workon agizo-py312
 ```
 
 ### Dependencies

@@ -160,7 +160,7 @@ pyproject-hooks==1.1.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.3.2
+pytest==8.3.3
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -177,11 +177,11 @@ pyyaml==6.0.2
     #   -r requirements/quality.txt
     #   bandit
     #   pre-commit
-rich==13.8.0
+rich==13.8.1
     # via
     #   -r requirements/quality.txt
     #   bandit
-ruff==0.6.4
+ruff==0.6.5
     # via -r requirements/quality.txt
 sqlparse==0.5.1
     # via

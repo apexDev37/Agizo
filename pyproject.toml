@@ -8,12 +8,10 @@
 # https://toml.io/en/latest
 
 
-# ======================================================================================
-
 [project]
-name = "djangops"
+name = "agizo"
 version = "0.1.0"
-description = "A simple DevOps inspired template for perfectionists, with deadlines."
+description = "Backend REST API service to process orders and notify customers."
 readme = "README.md"
 
 # Specify which Python versions you support.
@@ -25,52 +23,13 @@ maintainers = [
   {name = "Eugene Mwangi", email = "mwangi.em37@gmail.com" },
 ]
 
-# The following `project` metadata is specific to PyPI
-# to better support packages deployed on the platform.
-# Nevertheless, they have been included as metadata common
-# to Python developers for project semantics and future support
-# for Django apps intended to be packaged and distributed.
-# Feel free to omit them from your projecct.
-keywords = [ "template", "django", "devops", "development", ]
-
-classifiers = [
-  # How mature is this project? Common values are
-  #   3 - Alpha
-  #   4 - Beta
-  #   5 - Production/Stable
-  "Development Status :: 3 - Alpha",
-
-  # Indicate who your project is intended for
-  "Intended Audience :: Developers",
-  "Topic :: Software Development :: Build Tools",
-
-  # Pick your license as you wish
-  "License :: OSI Approved :: MIT License",
-
-  "Framework :: Django :: 4.2",
-  "Framework :: Django :: 5.0",
-
-  "Natural Language :: English",
-
-  # Specify the Python versions you support here. In particular, ensure
-  # that you indicate you support Python 3. These classifiers are *not*
-  # checked by "pip install". See instead "requires-python" key in this file.
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3 :: Only",
-]
-
 [project.urls]
-Homepage = "https://github.com/apexDev37/DjangOps"
-Repository = "https://github.com/apexDev37/DjangOps"
-Source = "https://github.com/apexDev37/DjangOps/tree/main/src"
-Documentation = "https://github.com/apexDev37/DjangOps/tree/main/docs"
-Changelog = "https://github.com/apexDev37/DjangOps/blob/main/CHANGELOG.md"
-"Bug Reports" = "https://github.com/apexDev37/DjangOps/issues"
+Homepage = "https://github.com/apexDev37/Agizo"
+Repository = "https://github.com/apexDev37/Agizo"
+Source = "https://github.com/apexDev37/Agizo/tree/main/src"
+"Bug Reports" = "https://github.com/apexDev37/Agizo/issues"
 
-# ======================================================================================
+# == Bandit ====================================================================
 
 # For extensive bandit config:
 # See: https://bandit.readthedocs.io/en/latest/config.html
@@ -80,6 +39,8 @@ exclude_dirs = [ "tests", "test_utils", ]
 
 # --- B201: flask_debug_true
 skips = [ "B201", ]
+
+# == Coverage ==================================================================
 
 # For extensive coverage config:
 # See: https://coverage.readthedocs.io/en/latest/config.html
@@ -117,6 +78,8 @@ exclude_also = [
     "@(abc\\.)?abstractmethod",
 ]
 
+# == Isort =====================================================================
+
 # For extensive isort config options:
 # See: https://pycqa.github.io/isort/docs/configuration/options.html
 [tool.isort]
@@ -128,6 +91,8 @@ indent = "    "
 line_length = 78
 use_parentheses = true
 skip = [ "migrations", ]
+
+# == MyPy ======================================================================
 
 # For extensive mypy config:
 # See: https://mypy.readthedocs.io/en/stable/config_file.html
@@ -164,6 +129,8 @@ pretty = true
 module = [ "src/config.*", "tests/*" ]
 strict = false
 disable_error_code = [ "import-not-found", "import-untyped", "misc", ]
+
+# == Pytest ====================================================================
 
 # For extensive pytest config:
 # See: https://docs.pytest.org/en/7.1.x/reference/reference.html#ini-options-ref
@@ -207,6 +174,8 @@ markers = [
     # Metrics
     "slow: marks a test as slow (deselect with '-m \"not slow\"')",
 ]
+
+# == Ruff ======================================================================
 
 # For more extensive ruff config
 # See: https://docs.astral.sh/ruff/settings

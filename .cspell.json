@@ -4,6 +4,7 @@
   "minWordLength": 3,
   "ignorePaths": [
     "**/.git/**",
+    "**/.tox/**",
     "**/vscode-extension/**",
     "**/.devcontainer/**"
   ],
@@ -16,7 +17,7 @@
     "concat",
     "datetimez",
     "devcontainer",
-    "djangops",
+    "agizo",
     "docstrings",
     "env",
     "galkaev",

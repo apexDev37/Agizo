@@ -6,9 +6,9 @@
 # == Top-level settings ========================================================
 
 repository:
-  name: DjangOps
+  name: Agizo
   description: "A lean DevOps inspired template for perfectionists, with deadlines."
-  homepage: https://github.com/apexDev37/DjangOps
+  homepage: https://github.com/apexDev37/Agizo
   private: false
   has_issues: true
   has_projects: true
