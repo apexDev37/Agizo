@@ -7,6 +7,7 @@ Managers can optionally be defined in a dedicated module, `managers.py`.
 from collections.abc import MutableMapping
 from typing import Any
 
+from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 
@@ -64,12 +65,35 @@ class User(AbstractBaseUser):
 
     objects = UserManager()
 
-    def __str__(self) -> str:
-        return f"<User {self.id}: email: {self.email}, active: {self.is_active}>"
-
     class Meta:
-        """Contains optional model metadata."""
+        """Optional model metadata."""
 
         verbose_name = "user"
         verbose_name_plural = "users"
         ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return f"<User {self.id}: email: {self.email}, active: {self.is_active}>"
+
+
+class CustomerProfile(models.Model):
+    """Custom user profile to represent a `customer` entity."""
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    name = models.CharField(
+        blank=False,
+        null=False,
+        max_length=50,
+    )
+    phone_number = models.CharField(max_length=15, blank=False, null=False, unique=True)
+
+    class Meta:
+        """Optional model metadata."""
+
+        db_table = "accounts_customer_profiles"
+        verbose_name = "customer"
+        verbose_name_plural = "customers"
+        ordering = ["-id"]
+
+    def __str__(self) -> str:
+        return f"<Customer {self.id}: email: {self.user.email} name: ({self.name})>"
