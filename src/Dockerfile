@@ -55,10 +55,13 @@ RUN <<EOF
 adduser \
     --gecos "" \
     --home "/home/appuser" \
-    --shell "/bin/shell" \
+    --shell "/bin/sh" \
     --system \
     --uid "${UID}" \
     appuser
+
+# change ownership of source directory to non-root user for local targets.
+chown -R ${UID} /usr/src/app/src
 EOF
 
 # set user-writeable, pytest cache dir for local target stages.
