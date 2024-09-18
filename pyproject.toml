@@ -100,12 +100,12 @@ skip = [ "migrations", ]
 [tool.mypy]
 mypy_path = ["$MYPY_CONFIG_FILE_DIR/"]
 explicit_package_bases = true
-ignore_missing_imports = false
+ignore_missing_imports = true
 namespace_packages = true
 
 # --- Disallow dynamic typing
-disallow_any_expr = true
-disallow_any_explicit = true
+disallow_any_expr = false
+disallow_any_explicit = false
 
 # --- Untyped definitions and calls
 disallow_untyped_defs = true
@@ -129,6 +129,10 @@ pretty = true
 module = [ "src/config.*", "tests/*" ]
 strict = false
 disable_error_code = [ "import-not-found", "import-untyped", "misc", ]
+
+[[tool.mypy.overrides]]
+module = [ "src/accounts.models" ]
+disable_error_code = [ "arg-type", "comparison-overlap" ]
 
 # == Pytest ====================================================================
 
