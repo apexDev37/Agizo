@@ -131,7 +131,7 @@ strict = false
 disable_error_code = [ "import-not-found", "import-untyped", "misc", ]
 
 [[tool.mypy.overrides]]
-module = [ "src/accounts.models" ]
+module = [ "src/accounts.managers" ]
 disable_error_code = [ "arg-type", "comparison-overlap" ]
 
 # == Pytest ====================================================================
