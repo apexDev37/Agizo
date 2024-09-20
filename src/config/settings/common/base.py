@@ -103,3 +103,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/4.2/topics/auth/customizing/#substituting-a-custom-user-model
 
 AUTH_USER_MODEL = "accounts.User"
+
+
+# DRF configuration settings
+# https://www.django-rest-framework.org/api-guide/settings/
+
+REST_FRAMEWORK = {"TEST_REQUEST_DEFAULT_FORMAT": "json"}
