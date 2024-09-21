@@ -12,6 +12,7 @@ from config.constants import ENABLE_DEBUG_TOOLBAR
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("accounts.urls", namespace="accounts")),
+    path("api/", include("orders.urls", namespace="orders")),
 ]
 
 if ENABLE_DEBUG_TOOLBAR:
