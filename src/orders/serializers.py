@@ -15,6 +15,8 @@ from rest_framework import serializers
 
 from accounts.profiles import CustomerProfile
 from orders.models import Order, OrderItem
+from orders.services import OrdersSMSService
+from orders.utils import init_africastalking_sms_service
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -65,4 +67,11 @@ class CreateOrderSerializer(serializers.ModelSerializer):
         _ = OrderItem.objects.bulk_create(
             [OrderItem(order=order, **item) for item in items]
         )
+
+        sms_client = init_africastalking_sms_service()
+
+        # Push SMS notification to customer who created order.
+        service = OrdersSMSService(client=sms_client)
+        _ = service.notify_customer(customer)
+
         return order

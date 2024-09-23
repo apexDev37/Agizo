@@ -39,6 +39,8 @@ services:
         required: true
       - path: .envs/database.env
         required: true
+      - path: .envs/service.env
+        required: true
 
 networks:
   front-tier: {}

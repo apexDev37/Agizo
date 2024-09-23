@@ -24,6 +24,10 @@ from config.settings.environment.django import (
     ENVIRONMENT,
     SECRET_KEY,
 )
+from config.settings.environment.service import (
+    AFRICAS_TALKING_API_KEY,
+    AFRICAS_TALKING_USERNAME,
+)
 
 # Settings for test databases for the target env: `testing`.
 # NB: Test databases are destroyed when all the tests have been executed,
