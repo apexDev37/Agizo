@@ -53,10 +53,13 @@ pytest==8.3.3
     # via
     #   pytest-cov
     #   pytest-django
+    #   pytest-mock
     #   pytest-xdist
 pytest-cov==5.0.0
     # via -r requirements/test.in
 pytest-django==4.9.0
+    # via -r requirements/test.in
+pytest-mock==3.14.0
     # via -r requirements/test.in
 pytest-xdist==3.6.1
     # via -r requirements/test.in

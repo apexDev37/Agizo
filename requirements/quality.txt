@@ -105,10 +105,13 @@ pytest==8.3.3
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
+    #   pytest-mock
     #   pytest-xdist
 pytest-cov==5.0.0
     # via -r requirements/test.txt
 pytest-django==4.9.0
+    # via -r requirements/test.txt
+pytest-mock==3.14.0
     # via -r requirements/test.txt
 pytest-xdist==3.6.1
     # via -r requirements/test.txt
