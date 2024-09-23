@@ -3,6 +3,7 @@
 from decimal import Decimal
 
 from django.db import models
+from django.db.models import Sum
 from django.utils.functional import cached_property
 
 from accounts.profiles import CustomerProfile
@@ -40,7 +41,12 @@ class Order(models.Model):
     @cached_property
     def total_amount(self) -> Decimal:
         """Compute the total amount for all order items."""
-        total = sum(item.amount for item in self.items.all())
+        total = (
+            self.items.aggregate(total=Sum(models.F("price") * models.F("quantity")))[
+                "total"
+            ]
+            or 0
+        )
         return round(Decimal(total), 2)
 
 
