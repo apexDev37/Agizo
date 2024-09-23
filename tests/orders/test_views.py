@@ -13,15 +13,18 @@ See (DRF): https://www.django-rest-framework.org/api-guide/testing/
 """
 
 from typing import TypedDict
+from unittest.mock import Mock
 
 import pytest
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser
 from django.urls import reverse
+from pytest_mock import MockerFixture, MockType
 from rest_framework import status
 from rest_framework.test import APIClient
 
 from accounts.profiles import CustomerProfile
+from orders.services import OrdersSMSService
 
 # Leverage global variable to apply custom marker at the module level
 # for all tests. Add markers by assigning values of type: list.
@@ -58,6 +61,15 @@ def client() -> APIClient:
     }
     client.raise_request_exception = True
     return client
+
+
+@pytest.fixture()
+def mock_send_sms(mocker: MockerFixture) -> MockType:
+    mock_response = _mock_sms_send_response()
+    mock_sms_send = mocker.patch.object(
+        OrdersSMSService, "notify_customer", return_value=mock_response, autospec=True
+    )
+    return mock_sms_send
 
 
 class TOrderItem(TypedDict):
@@ -99,3 +111,50 @@ def test_should_create_and_persist_customer_order_with_order_items(
     assert response.status_code == status.HTTP_201_CREATED
     assert response.data["status"] == "success"
     assert response.data["order"]["customer"]["phone_number"] == customer.phone_number
+
+
+@pytest.mark.django_db()
+def test_should_send_sms_to_notify_customer_on_created_order(
+    client: APIClient, customer: CustomerProfile, mock_send_sms: MockType
+) -> None:
+    # Given
+    payload = TOrder(
+        items=[TOrderItem(name="Product A", price=10.05, quantity=2)],
+        customer_phone_number=customer.phone_number,
+    )
+
+    # When
+    response = client.post(path=ORDER_ENDPOINT, data=payload)
+
+    # Then
+    mock_send_sms.assert_called_once()
+    assert response.status_code == status.HTTP_201_CREATED
+    assert response.data["status"] == "success"
+
+
+# ==============================================================================
+# Helper functions.
+# ==============================================================================
+
+
+def _mock_sms_send_response() -> Mock:
+    """Mock response for SMS send.
+
+    Mocks the expected response from a successful synchronous `sms.send` call.
+    """
+    mock_response = Mock()
+    mock_response.json.return_value = {
+        "SMSMessageData": {
+            "Message": "Sent to 1/1 Total Cost: KES 0.8000 Message parts: 1",
+            "Recipients": [
+                {
+                    "cost": "KES 0.8000",
+                    "messageId": "ATXid_fca33f8c1de9baf3cab57cf34916c34c",
+                    "number": "+2547XXXXXXXX",
+                    "status": "Success",
+                    "statusCode": 101,
+                }
+            ],
+        }
+    }
+    return mock_response
