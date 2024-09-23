@@ -4,8 +4,14 @@
 #
 #    pip-compile --output-file=requirements/base.txt --strip-extras requirements/base.in
 #
+africastalking==1.2.8
+    # via -r requirements/base.in
 asgiref==3.8.1
     # via django
+certifi==2024.8.30
+    # via requests
+charset-normalizer==3.3.2
+    # via requests
 django==4.2.16
     # via
     #   -c requirements/constraints.txt
@@ -17,13 +23,21 @@ django-environ==0.11.2
     #   -r requirements/base.in
 djangorestframework==3.15.2
     # via -r requirements/base.in
+idna==3.10
+    # via requests
 psycopg==3.2.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
 psycopg-binary==3.2.1
     # via psycopg
+requests==2.32.3
+    # via africastalking
+schema==0.7.7
+    # via africastalking
 sqlparse==0.5.1
     # via django
 typing-extensions==4.12.2
     # via psycopg
+urllib3==2.2.3
+    # via requests

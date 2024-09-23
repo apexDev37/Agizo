@@ -4,6 +4,8 @@
 #
 #    pip-compile --output-file=requirements/dev.txt --strip-extras requirements/dev.in
 #
+africastalking==1.2.8
+    # via -r requirements/quality.txt
 asgiref==3.8.1
     # via
     #   -r requirements/quality.txt
@@ -20,6 +22,10 @@ cachetools==5.5.0
     # via
     #   -r requirements/ci.txt
     #   tox
+certifi==2024.8.30
+    # via
+    #   -r requirements/quality.txt
+    #   requests
 cfgv==3.4.0
     # via
     #   -r requirements/quality.txt
@@ -29,6 +35,10 @@ chardet==5.2.0
     #   -r requirements/ci.txt
     #   diff-cover
     #   tox
+charset-normalizer==3.3.2
+    # via
+    #   -r requirements/quality.txt
+    #   requests
 click==8.1.7
     # via
     #   -r requirements/pip-tools.txt
@@ -78,6 +88,10 @@ identify==2.6.0
     # via
     #   -r requirements/quality.txt
     #   pre-commit
+idna==3.10
+    # via
+    #   -r requirements/quality.txt
+    #   requests
 iniconfig==2.0.0
     # via
     #   -r requirements/quality.txt
@@ -180,12 +194,20 @@ pyyaml==6.0.2
     #   -r requirements/quality.txt
     #   bandit
     #   pre-commit
+requests==2.32.3
+    # via
+    #   -r requirements/quality.txt
+    #   africastalking
 rich==13.8.1
     # via
     #   -r requirements/quality.txt
     #   bandit
 ruff==0.6.5
     # via -r requirements/quality.txt
+schema==0.7.7
+    # via
+    #   -r requirements/quality.txt
+    #   africastalking
 sqlparse==0.5.1
     # via
     #   -r requirements/quality.txt
@@ -207,6 +229,10 @@ typing-extensions==4.12.2
     #   -r requirements/quality.txt
     #   mypy
     #   psycopg
+urllib3==2.2.3
+    # via
+    #   -r requirements/quality.txt
+    #   requests
 virtualenv==20.26.4
     # via
     #   -r requirements/ci.txt

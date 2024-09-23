@@ -4,10 +4,20 @@
 #
 #    pip-compile --output-file=requirements/test.txt --strip-extras requirements/test.in
 #
+africastalking==1.2.8
+    # via -r requirements/base.txt
 asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
+certifi==2024.8.30
+    # via
+    #   -r requirements/base.txt
+    #   requests
+charset-normalizer==3.3.2
+    # via
+    #   -r requirements/base.txt
+    #   requests
 coverage==7.6.1
     # via pytest-cov
 django==4.2.16
@@ -23,6 +33,10 @@ djangorestframework==3.15.2
     # via -r requirements/base.txt
 execnet==2.1.1
     # via pytest-xdist
+idna==3.10
+    # via
+    #   -r requirements/base.txt
+    #   requests
 iniconfig==2.0.0
     # via pytest
 packaging==24.1
@@ -46,6 +60,14 @@ pytest-django==4.9.0
     # via -r requirements/test.in
 pytest-xdist==3.6.1
     # via -r requirements/test.in
+requests==2.32.3
+    # via
+    #   -r requirements/base.txt
+    #   africastalking
+schema==0.7.7
+    # via
+    #   -r requirements/base.txt
+    #   africastalking
 sqlparse==0.5.1
     # via
     #   -r requirements/base.txt
@@ -54,3 +76,7 @@ typing-extensions==4.12.2
     # via
     #   -r requirements/base.txt
     #   psycopg
+urllib3==2.2.3
+    # via
+    #   -r requirements/base.txt
+    #   requests
