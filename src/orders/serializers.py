@@ -11,12 +11,11 @@ from collections.abc import MutableMapping
 from decimal import Decimal
 from typing import Any
 
+from django.db import transaction
 from rest_framework import serializers
 
 from accounts.profiles import CustomerProfile
 from orders.models import Order, OrderItem
-from orders.services import OrdersSMSService
-from orders.utils import init_africastalking_sms_service
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -61,17 +60,17 @@ class CreateOrderSerializer(serializers.ModelSerializer):
         phone_number = validated_data.pop("customer_phone_number")
         customer = CustomerProfile.objects.filter(phone_number=phone_number).first()
 
-        order = Order.objects.create(customer=customer)
+        with transaction.atomic():
+            order = Order.objects.create(customer=customer)
 
-        items = validated_data.pop("items")
-        _ = OrderItem.objects.bulk_create(
-            [OrderItem(order=order, **item) for item in items]
-        )
+            items = validated_data.pop("items")
+            _ = OrderItem.objects.bulk_create(
+                [OrderItem(order=order, **item) for item in items]
+            )
 
-        sms_client = init_africastalking_sms_service()
+        # Trigger custom signal to notify customer.
+        from orders.signals import post_create_order
 
-        # Push SMS notification to customer who created order.
-        service = OrdersSMSService(client=sms_client)
-        _ = service.notify_customer(customer)
+        post_create_order.send(sender=self.__class__, order=order, customer=customer)
 
         return order

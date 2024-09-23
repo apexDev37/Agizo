@@ -11,3 +11,9 @@ class OrdersConfig(AppConfig):
 
     default_auto_field = "django.db.models.BigAutoField"
     name = "orders"
+
+    def ready(self) -> None:
+        # Implicitly connect signal handlers decorated with @receiver.
+        from orders import signals  # noqa: F401
+
+        ...
