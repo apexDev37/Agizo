@@ -14,17 +14,28 @@ certifi==2024.8.30
     # via
     #   -r requirements/base.txt
     #   requests
+cffi==1.17.1
+    # via
+    #   -r requirements/base.txt
+    #   cryptography
 charset-normalizer==3.3.2
     # via
     #   -r requirements/base.txt
     #   requests
 coverage==7.6.1
     # via pytest-cov
+cryptography==43.0.1
+    # via
+    #   -r requirements/base.txt
+    #   josepy
+    #   mozilla-django-oidc
+    #   pyopenssl
 django==4.2.16
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   djangorestframework
+    #   mozilla-django-oidc
 django-environ==0.11.2
     # via
     #   -c requirements/constraints.txt
@@ -39,6 +50,12 @@ idna==3.10
     #   requests
 iniconfig==2.0.0
     # via pytest
+josepy==1.14.0
+    # via
+    #   -r requirements/base.txt
+    #   mozilla-django-oidc
+mozilla-django-oidc==4.0.1
+    # via -r requirements/base.txt
 packaging==24.1
     # via pytest
 pluggy==1.5.0
@@ -49,6 +66,14 @@ psycopg==3.2.1
     #   -r requirements/base.txt
 psycopg-binary==3.2.1
     # via -r requirements/base.txt
+pycparser==2.22
+    # via
+    #   -r requirements/base.txt
+    #   cffi
+pyopenssl==24.2.1
+    # via
+    #   -r requirements/base.txt
+    #   josepy
 pytest==8.3.3
     # via
     #   pytest-cov
@@ -67,6 +92,7 @@ requests==2.32.3
     # via
     #   -r requirements/base.txt
     #   africastalking
+    #   mozilla-django-oidc
 schema==0.7.7
     # via
     #   -r requirements/base.txt

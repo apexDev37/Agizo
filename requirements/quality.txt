@@ -18,6 +18,10 @@ certifi==2024.8.30
     # via
     #   -r requirements/test.txt
     #   requests
+cffi==1.17.1
+    # via
+    #   -r requirements/test.txt
+    #   cryptography
 cfgv==3.4.0
     # via pre-commit
 charset-normalizer==3.3.2
@@ -30,6 +34,12 @@ coverage==7.6.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
+cryptography==43.0.1
+    # via
+    #   -r requirements/test.txt
+    #   josepy
+    #   mozilla-django-oidc
+    #   pyopenssl
 distlib==0.3.8
     # via virtualenv
 django==4.2.16
@@ -37,6 +47,7 @@ django==4.2.16
     #   -c requirements/constraints.txt
     #   -r requirements/test.txt
     #   djangorestframework
+    #   mozilla-django-oidc
 django-environ==0.11.2
     # via
     #   -c requirements/constraints.txt
@@ -61,10 +72,16 @@ iniconfig==2.0.0
     #   pytest
 isort==5.13.2
     # via -r requirements/quality.in
+josepy==1.14.0
+    # via
+    #   -r requirements/test.txt
+    #   mozilla-django-oidc
 markdown-it-py==3.0.0
     # via rich
 mdurl==0.1.2
     # via markdown-it-py
+mozilla-django-oidc==4.0.1
+    # via -r requirements/test.txt
 mypy==1.11.2
     # via -r requirements/quality.in
 mypy-extensions==1.0.0
@@ -98,8 +115,16 @@ psycopg==3.2.1
     #   -r requirements/test.txt
 psycopg-binary==3.2.1
     # via -r requirements/test.txt
+pycparser==2.22
+    # via
+    #   -r requirements/test.txt
+    #   cffi
 pygments==2.18.0
     # via rich
+pyopenssl==24.2.1
+    # via
+    #   -r requirements/test.txt
+    #   josepy
 pytest==8.3.3
     # via
     #   -r requirements/test.txt
@@ -123,6 +148,7 @@ requests==2.32.3
     # via
     #   -r requirements/test.txt
     #   africastalking
+    #   mozilla-django-oidc
 rich==13.8.1
     # via bandit
 ruff==0.6.5

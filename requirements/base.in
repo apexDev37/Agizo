@@ -6,3 +6,4 @@ django-environ            # Configure Django with environment variables.
 psycopg[binary]           # Modern implementation of a PostgreSQL adapter for Python.
 djangorestframework       # Flexible toolkit for building Web APIs.
 africastalking            # Official SDK to access AT APIs for Python.
+mozilla-django-oidc       # Lightweight OpenID Connect library for Django.

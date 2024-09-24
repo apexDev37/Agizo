@@ -26,6 +26,10 @@ certifi==2024.8.30
     # via
     #   -r requirements/quality.txt
     #   requests
+cffi==1.17.1
+    # via
+    #   -r requirements/quality.txt
+    #   cryptography
 cfgv==3.4.0
     # via
     #   -r requirements/quality.txt
@@ -53,6 +57,12 @@ coverage==7.6.1
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
+cryptography==43.0.1
+    # via
+    #   -r requirements/quality.txt
+    #   josepy
+    #   mozilla-django-oidc
+    #   pyopenssl
 diff-cover==9.2.0
     # via -r requirements/dev.in
 distlib==0.3.8
@@ -66,6 +76,7 @@ django==4.2.16
     #   -r requirements/quality.txt
     #   django-debug-toolbar
     #   djangorestframework
+    #   mozilla-django-oidc
 django-debug-toolbar==4.4.6
     # via -r requirements/dev.in
 django-environ==0.11.2
@@ -100,6 +111,10 @@ isort==5.13.2
     # via -r requirements/quality.txt
 jinja2==3.1.4
     # via diff-cover
+josepy==1.14.0
+    # via
+    #   -r requirements/quality.txt
+    #   mozilla-django-oidc
 markdown-it-py==3.0.0
     # via
     #   -r requirements/quality.txt
@@ -110,6 +125,8 @@ mdurl==0.1.2
     # via
     #   -r requirements/quality.txt
     #   markdown-it-py
+mozilla-django-oidc==4.0.1
+    # via -r requirements/quality.txt
 mypy==1.11.2
     # via -r requirements/quality.txt
 mypy-extensions==1.0.0
@@ -163,11 +180,19 @@ psycopg==3.2.1
     #   -r requirements/quality.txt
 psycopg-binary==3.2.1
     # via -r requirements/quality.txt
+pycparser==2.22
+    # via
+    #   -r requirements/quality.txt
+    #   cffi
 pygments==2.18.0
     # via
     #   -r requirements/quality.txt
     #   diff-cover
     #   rich
+pyopenssl==24.2.1
+    # via
+    #   -r requirements/quality.txt
+    #   josepy
 pyproject-api==1.7.1
     # via
     #   -r requirements/ci.txt
@@ -201,6 +226,7 @@ requests==2.32.3
     # via
     #   -r requirements/quality.txt
     #   africastalking
+    #   mozilla-django-oidc
 rich==13.8.1
     # via
     #   -r requirements/quality.txt
