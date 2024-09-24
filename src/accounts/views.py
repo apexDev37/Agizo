@@ -6,6 +6,8 @@ For more details about this module
 See: https://www.django-rest-framework.org/api-guide/views/
 """
 
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -32,3 +34,7 @@ def create_customer(request: Request) -> Response:
             "customer": {"name": customer.name, "email": customer.user.email},
         },
     )
+
+
+def home_view(request: HttpRequest) -> HttpResponse:
+    return render(request, "accounts/index.html")

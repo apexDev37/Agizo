@@ -19,6 +19,7 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
+    "mozilla_django_oidc",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
@@ -27,6 +28,11 @@ INSTALLED_APPS = [
     "orders.apps.OrdersConfig",
     "rest_framework",
 ]
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
+)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -109,4 +115,58 @@ AUTH_USER_MODEL = "accounts.User"
 # DRF configuration settings
 # https://www.django-rest-framework.org/api-guide/settings/
 
-REST_FRAMEWORK = {"TEST_REQUEST_DEFAULT_FORMAT": "json"}
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "mozilla_django_oidc.contrib.drf.OIDCAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+}
+
+
+# OIDC configuration settings
+# https://mozilla-django-oidc.readthedocs.io/en/stable/settings.html
+
+# Override default algorithm to OP's supported signing algorithm.
+# See: https://developers.google.com/identity/protocols/oauth2/service-account
+OIDC_RP_SIGN_ALGO = "RS256"
+
+# Set OP JWKS endpoint for `RS256` algorithm to work.
+OIDC_OP_JWKS_ENDPOINT = "https://www.googleapis.com/oauth2/v3/certs"
+
+# OIDC Provider (OP) specific configuration settings.
+# See: https://accounts.google.com/.well-known/openid-configuration
+OIDC_OP_AUTHORIZATION_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth"
+OIDC_OP_TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token"  # nosec B105
+OIDC_OP_USER_ENDPOINT = "https://openidconnect.googleapis.com/v1/userinfo"
+
+# Project specific settings.
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+# Prevent `mozilla-django-oidc` from creating new Django users.
+OIDC_CREATE_USER = False
+
+# Enable logging for debugging purposes.
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        }
+    },
+    "loggers": {
+        "mozilla_django_oidc": {"handlers": ["console"], "level": "DEBUG"},
+    },
+    "formatters": {
+        "verbose": {
+            "format": "{name} {levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+    },
+}

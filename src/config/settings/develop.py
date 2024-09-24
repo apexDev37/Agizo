@@ -20,6 +20,8 @@ from config.settings.environment.django import (
 from config.settings.environment.service import (
     AFRICAS_TALKING_API_KEY,
     AFRICAS_TALKING_USERNAME,
+    OIDC_RP_CLIENT_ID,
+    OIDC_RP_CLIENT_SECRET,
 )
 
 INTERNAL_IPS = [".localhost", "127.0.0.1", "[::1]"]

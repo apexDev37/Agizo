@@ -27,6 +27,8 @@ from config.settings.environment.django import (
 from config.settings.environment.service import (
     AFRICAS_TALKING_API_KEY,
     AFRICAS_TALKING_USERNAME,
+    OIDC_RP_CLIENT_ID,
+    OIDC_RP_CLIENT_SECRET,
 )
 
 # Settings for test databases for the target env: `testing`.

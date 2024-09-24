@@ -18,6 +18,8 @@ from config.settings.common.base import BASE_DIR
 env = environ.FileAwareEnv(
     AFRICAS_TALKING_USERNAME=(str, "sandbox"),
     AFRICAS_TALKING_API_KEY=(str, None),
+    OIDC_RP_CLIENT_ID=(str, None),
+    OIDC_RP_CLIENT_SECRET=(str, None),
 )
 
 # Read environment variables from .env file.
@@ -32,3 +34,7 @@ environ.Env.read_env(
 # africastalking
 AFRICAS_TALKING_USERNAME = env("AFRICAS_TALKING_USERNAME")
 AFRICAS_TALKING_API_KEY = env("AFRICAS_TALKING_API_KEY")
+
+# mozilla_django_oidc
+OIDC_RP_CLIENT_ID = env("OIDC_RP_CLIENT_ID")
+OIDC_RP_CLIENT_SECRET = env("OIDC_RP_CLIENT_SECRET")
