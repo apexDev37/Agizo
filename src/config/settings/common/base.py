@@ -19,9 +19,9 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
-    "mozilla_django_oidc",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
+    "mozilla_django_oidc",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts.apps.AccountsConfig",
@@ -31,7 +31,7 @@ INSTALLED_APPS = [
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
-    "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
+    "config.settings.auth.oidc.backends.CustomOIDCAuthBackend",
 )
 
 MIDDLEWARE = [
@@ -147,8 +147,8 @@ OIDC_OP_USER_ENDPOINT = "https://openidconnect.googleapis.com/v1/userinfo"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-# Prevent `mozilla-django-oidc` from creating new Django users.
-OIDC_CREATE_USER = False
+# Allow `mozilla-django-oidc` to create new Django users (default).
+OIDC_CREATE_USER = True
 
 # Enable logging for debugging purposes.
 LOGGING = {
