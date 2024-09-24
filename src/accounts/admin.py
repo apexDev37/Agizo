@@ -15,10 +15,15 @@ class UserAdmin(admin.ModelAdmin):
     list_display = (
         "email",
         "is_active",
+        "is_staff",
         "is_superuser",
         "created_at",
     )
-    list_filter = ("is_active", "is_superuser")
+    list_filter = (
+        "is_active",
+        "is_staff",
+        "is_superuser",
+    )
     ordering = ("created_at",)
     readonly_fields = (
         "id",

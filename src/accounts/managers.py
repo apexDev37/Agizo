@@ -12,6 +12,7 @@ from typing import Any
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 IS_ACTIVE: str = "is_active"
+IS_STAFF: str = "is_staff"
 IS_SUPERUSER: str = "is_superuser"
 
 
@@ -43,6 +44,7 @@ class UserManager(BaseUserManager):
         """Defines fields to create and save superuser instances."""
         extra_fields.setdefault(IS_SUPERUSER, True)
         extra_fields.setdefault(IS_ACTIVE, True)
+        extra_fields.setdefault(IS_STAFF, True)
 
         if extra_fields.get(IS_SUPERUSER) is not True:
             errmsg = f"Superuser must have {IS_SUPERUSER}=True."
