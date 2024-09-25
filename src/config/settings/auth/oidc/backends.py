@@ -30,6 +30,8 @@ class CustomOIDCAuthBackend(OIDCAuthenticationBackend):
             - This method generates a placeholder password for the OIDC user
             which is a system requirement. Given authentication occurs with
             an OP (Google), the local password is not required to authenticate.
+            - Change the User field `is_active` to `True` for OIDC-authenticated
+            users to enable them to login.
         """
         email = claims.get("email")
         if not email:
@@ -39,6 +41,7 @@ class CustomOIDCAuthBackend(OIDCAuthenticationBackend):
         user = self.UserModel.objects.create_user(
             email=email, password=secrets.token_urlsafe()
         )
-        user.save()
 
+        user.is_active = True
+        user.save(update_fields=["is_active"])
         return user
