@@ -13,7 +13,7 @@ See (DRF): https://www.django-rest-framework.org/api-guide/testing/
 """
 
 from collections.abc import Generator
-from typing import TypeAlias, TypeVar
+from typing import TypeAlias, TypedDict, TypeVar
 
 import pytest
 from django.contrib.auth import get_user_model
@@ -37,6 +37,44 @@ TGenerator: TypeAlias = Generator[T, None, None]
 User = get_user_model()
 
 
+class TUser(TypedDict):
+    """Type structure for a single user data."""
+
+    user_email: str
+    user_password: str
+
+
+class TCustomer(TypedDict):
+    """Type structure for a single customer data."""
+
+    name: str
+    phone_number: str
+
+
+class TUserAndCustomer(TUser, TCustomer):
+    """Type union structure for a single user and customer data."""
+
+    ...
+
+
+@pytest.fixture()
+def user_data() -> TUser:
+    """Represents valid client data for a user."""
+    return TUser(user_email="johndoe@email.example", user_password="jd-secret-pwd")
+
+
+@pytest.fixture()
+def customer_data() -> TCustomer:
+    """Represents valid client data for a customer."""
+    return TCustomer(name="John Doe", phone_number="+254000000000")
+
+
+@pytest.fixture()
+def user_customer_data(user_data: TUser, customer_data: TCustomer) -> TUserAndCustomer:
+    """Represents valid client data for a user and customer."""
+    return TUserAndCustomer(**user_data, **customer_data)
+
+
 @pytest.fixture()
 def client() -> APIClient:
     """Represents an API client from DRF's test utilities."""
@@ -49,10 +87,10 @@ def client() -> APIClient:
 
 
 @pytest.fixture()
-def user() -> TGenerator[AbstractBaseUser]:
+def user(user_data: TUser) -> TGenerator[AbstractBaseUser]:
     """Represents a user instance persisted in the DB."""
     user = User.objects.create_user(
-        email="johndoe@email.example", password="jd-secret-pwd"
+        email=user_data["user_email"], password=user_data["user_password"]
     )
     yield user
     user.delete()
@@ -66,71 +104,83 @@ def auth_client(client: APIClient, user: AbstractBaseUser) -> TGenerator[APIClie
     client.force_authenticate(user=None)
 
 
-def test_should_return_401_for_unauthenticated_client_requests(
-    client: APIClient,
-) -> None:
-    # Given
-    payload = _test_data()
+class TestCreateCustomerView:
+    """Tests to cover behavior for API view, `create_customer`."""
 
-    # When
-    response = client.post(path=CUSTOMER_ENDPOINT, data=payload)
+    def test_should_return_401_for_unauthenticated_client_requests(
+        self,
+        client: APIClient,
+        customer_data: TCustomer,  # Given
+    ) -> None:
+        # When
+        response = client.post(path=CUSTOMER_ENDPOINT, data=customer_data)
 
-    # Then
-    assert response.status_code == status.HTTP_401_UNAUTHORIZED
-    assert "not_authenticated" in response.data["detail"].code
+        # Then
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+        assert "not_authenticated" in response.data["detail"].code
 
+    def test_should_return_400_for_invalid_customer_request_data(
+        self,
+        auth_client: APIClient,
+    ) -> None:
+        # Given
+        payload = TCustomer(name="", phone_number="123")
 
-def test_should_return_400_for_invalid_customer_request_data(
-    auth_client: APIClient,
-) -> None:
-    # Given
-    payload = _test_data(user_email="nonexistent", user_password="tooshort")
+        # When
+        response = auth_client.post(path=CUSTOMER_ENDPOINT, data=payload)
 
-    # When
-    response = auth_client.post(path=CUSTOMER_ENDPOINT, data=payload)
+        # Then
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data["name"], response.data["phone_number"]
+        assert all(isinstance(v[0], ErrorDetail) for v in response.data.values())
 
-    # Then
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert response.data["user_email"], response.data["user_password"]
-    assert all(isinstance(v[0], ErrorDetail) for v in response.data.values())
+    def test_should_return_201_from_user_request_with_valid_customer_data(
+        self,
+        user: AbstractBaseUser,
+        auth_client: APIClient,
+        customer_data: TCustomer,  # Given
+    ) -> None:
+        # When
+        response = auth_client.post(path=CUSTOMER_ENDPOINT, data=customer_data)
 
-
-def test_should_return_201_on_created_user_and_customer_profile(
-    auth_client: APIClient,
-) -> None:
-    # Given
-    payload = _test_data()
-
-    # When
-    response = auth_client.post(path=CUSTOMER_ENDPOINT, data=payload)
-
-    # Then
-    assert response.status_code == status.HTTP_201_CREATED
-    assert response.data["status"] == "success"
-    assert response.data["customer"]["email"] == payload["user_email"]
-
-
-# ==============================================================================
-# Helper functions.
-# ==============================================================================
+        # Then
+        assert response.status_code == status.HTTP_201_CREATED
+        assert response.data["status"] == "success"
+        assert response.data["customer"]["email"] == user.email
 
 
-def _test_data(
-    name: str = "Anna blue",
-    phone_number: str = "+245000000000",
-    user_email: str = "annablue@email.example",
-    user_password: str = "ab-secret-pwd",
-) -> dict[str, str]:
-    """Represents a valid payload to create a customer.
+@pytest.mark.skip("not implemented - add API view `create_user_and_customer`")
+class TestCreateUserAndCustomerView:
+    """Tests to cover behavior for API view, `create_user_and_customer`."""
 
-    Note:
-        - Override data by passing arguments to the func params with defaults.
-        Invalid values can be passed as arguments allowing the func signature
-        to clearly express fields that will fail validation.
-    """
-    return {
-        "name": name,
-        "phone_number": phone_number,
-        "user_email": user_email,
-        "user_password": user_password,
-    }
+    def test_should_return_400_for_invalid_user_request_data(
+        self,
+        auth_client: APIClient,
+        customer_data: TCustomer,
+    ) -> None:
+        # Given
+        invalid_user_data = TUser(user_email="nonexistent", user_password="tooshort")
+        payload = TUserAndCustomer(**invalid_user_data, **customer_data)
+
+        # When
+        response = auth_client.post(path=CUSTOMER_ENDPOINT, data=payload)
+
+        # Then
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data["user_email"], response.data["user_password"]
+        assert all(isinstance(v[0], ErrorDetail) for v in response.data.values())
+
+    @pytest.mark.xfail(reason="bug - test passes when using the wrong serializer")
+    def test_should_return_201_on_created_user_and_customer_profile(
+        self,
+        user: AbstractBaseUser,
+        auth_client: APIClient,
+        user_customer_data: TUserAndCustomer,  # Given
+    ) -> None:
+        # When
+        response = auth_client.post(path=CUSTOMER_ENDPOINT, data=user_customer_data)
+
+        # Then
+        assert response.status_code == status.HTTP_201_CREATED
+        assert response.data["status"] == "success"
+        assert response.data["customer"]["email"] == user.email

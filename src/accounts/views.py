@@ -15,14 +15,16 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from accounts.profiles import CustomerProfile
-from accounts.serializers import CreateUserAndCustomerSerializer
+from accounts.serializers import CreateCustomerSerializer
 
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def create_customer(request: Request) -> Response:
-    """Create and save a `User` and `CustomerProfile` instance."""
-    serializer = CreateUserAndCustomerSerializer(data=request.data)
+    """Create and save a `CustomerProfile` instance."""
+    serializer = CreateCustomerSerializer(
+        data=request.data, context={"request": request}
+    )
     serializer.is_valid(raise_exception=True)
 
     customer: CustomerProfile = serializer.save()
@@ -30,7 +32,7 @@ def create_customer(request: Request) -> Response:
         status=status.HTTP_201_CREATED,
         data={
             "status": "success",
-            "desc": "create user and customer profile.",
+            "desc": "create customer profile",
             "customer": {"name": customer.name, "email": customer.user.email},
         },
     )
