@@ -93,3 +93,4 @@ repos:
       hooks:
       -   id: codespell
           files: \.(py|sh|md|rst|yml|yaml)$
+          args: [-L, userA]
