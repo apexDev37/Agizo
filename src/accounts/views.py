@@ -10,7 +10,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -19,7 +19,7 @@ from accounts.serializers import CreateCustomerSerializer
 
 
 @api_view(["POST"])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def create_customer(request: Request) -> Response:
     """Create and save a `User` and `CustomerProfile` instance."""
     serializer = CreateCustomerSerializer(data=request.data)

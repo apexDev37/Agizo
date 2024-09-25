@@ -8,7 +8,7 @@ See: https://www.django-rest-framework.org/api-guide/views/
 
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -16,7 +16,7 @@ from orders.serializers import CreateOrderSerializer
 
 
 @api_view(["POST"])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def create_order(request: Request) -> Response:
     """Create and save an `Order` instance made by a customer user."""
     serializer = CreateOrderSerializer(data=request.data)

@@ -29,10 +29,9 @@ from orders.services import OrdersSMSService
 # Leverage global variable to apply custom marker at the module level
 # for all tests. Add markers by assigning values of type: list.
 # For example: [pytest.mark.smoke, pytest.mark.unit, ...]
-pytestmark = pytest.mark.integration
+pytestmark = [pytest.mark.integration, pytest.mark.django_db]
 
 ORDER_ENDPOINT: str = reverse("orders:create_order")
-
 TEST_USER_NAME: str = "John Doe"
 TEST_USER_EMAIL: str = "johndoe@email.example"
 TEST_USER_PASSWORD: str = "jd-secret-pwd"
@@ -43,11 +42,13 @@ User = get_user_model()
 
 @pytest.fixture()
 def user() -> AbstractBaseUser:
+    """Represents a user instance persisted in the DB."""
     return User.objects.create_user(email=TEST_USER_EMAIL, password=TEST_USER_PASSWORD)
 
 
 @pytest.fixture()
 def customer(user: AbstractBaseUser) -> CustomerProfile:
+    """Represents a customer instance persisted in the DB."""
     return CustomerProfile.objects.create(
         user=user, name=TEST_USER_NAME, phone_number=TEST_USER_PHONE_NO
     )
@@ -55,6 +56,7 @@ def customer(user: AbstractBaseUser) -> CustomerProfile:
 
 @pytest.fixture()
 def client() -> APIClient:
+    """Represents an API client from DRF's test utilities."""
     client = APIClient()
     client.headers = {
         "Content-Type": "application/json",
@@ -64,7 +66,15 @@ def client() -> APIClient:
 
 
 @pytest.fixture()
+def auth_client(client: APIClient, user: AbstractBaseUser) -> APIClient:
+    """Represents an authenticated API client from DRF's test utilities."""
+    client.force_authenticate(user=user)
+    return client
+
+
+@pytest.fixture()
 def mock_send_sms(mocker: MockerFixture) -> MockType:
+    """Mocks an SMS notification request sent to a customer."""
     mock_response = _mock_sms_send_response()
     mock_sms_send = mocker.patch.object(
         OrdersSMSService, "notify_customer", return_value=mock_response, autospec=True
@@ -87,7 +97,23 @@ class TOrder(TypedDict):
     customer_phone_number: str
 
 
-@pytest.mark.django_db()
+def test_should_return_401_for_unauthenticated_client_order_request(
+    client: APIClient, customer: CustomerProfile
+) -> None:
+    # Given
+    payload = TOrder(
+        items=[TOrderItem(name="Product A", price=10.05, quantity=2)],
+        customer_phone_number=customer.phone_number,
+    )
+
+    # When
+    response = client.post(path=ORDER_ENDPOINT, data=payload)
+
+    # Then
+    assert response.status_code == status.HTTP_401_UNAUTHORIZED
+    assert "not_authenticated" in response.data["detail"].code
+
+
 @pytest.mark.parametrize(
     "items",
     [
@@ -99,13 +125,13 @@ class TOrder(TypedDict):
     ],
 )
 def test_should_create_and_persist_customer_order_with_order_items(
-    client: APIClient, customer: CustomerProfile, items: list[TOrderItem]
+    auth_client: APIClient, customer: CustomerProfile, items: list[TOrderItem]
 ) -> None:
     # Given
     payload = TOrder(items=items, customer_phone_number=customer.phone_number)
 
     # When
-    response = client.post(path=ORDER_ENDPOINT, data=payload)
+    response = auth_client.post(path=ORDER_ENDPOINT, data=payload)
 
     # Then
     assert response.status_code == status.HTTP_201_CREATED
@@ -113,9 +139,8 @@ def test_should_create_and_persist_customer_order_with_order_items(
     assert response.data["order"]["customer"]["phone_number"] == customer.phone_number
 
 
-@pytest.mark.django_db()
 def test_should_send_sms_to_notify_customer_on_created_order(
-    client: APIClient, customer: CustomerProfile, mock_send_sms: MockType
+    auth_client: APIClient, customer: CustomerProfile, mock_send_sms: MockType
 ) -> None:
     # Given
     payload = TOrder(
@@ -124,7 +149,7 @@ def test_should_send_sms_to_notify_customer_on_created_order(
     )
 
     # When
-    response = client.post(path=ORDER_ENDPOINT, data=payload)
+    response = auth_client.post(path=ORDER_ENDPOINT, data=payload)
 
     # Then
     mock_send_sms.assert_called_once()
