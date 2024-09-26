@@ -12,6 +12,7 @@ See (Django): https://docs.djangoproject.com/en/4.2/topics/testing/tools/#the-te
 See (DRF): https://www.django-rest-framework.org/api-guide/testing/
 """
 
+import re
 from collections.abc import Generator
 from typing import TypeAlias, TypedDict, TypeVar
 
@@ -104,7 +105,20 @@ def auth_client(client: APIClient, user: AbstractBaseUser) -> TGenerator[APIClie
     client.force_authenticate(user=None)
 
 
-class TestCreateCustomerView:
+def test_should_render_index_template_on_request_to_accounts_home_view(
+    client: APIClient,  # Given
+) -> None:
+    # When
+    response = client.get(path=reverse("home"))
+    expected = "accounts/index.html"
+
+    # Then
+    assert response.status_code == status.HTTP_200_OK
+    assert any(template.name == expected for template in response.templates)
+    assert re.search(r"login", response.content.decode("utf-8"), re.IGNORECASE)
+
+
+class TestCreateCustomerAPIView:
     """Tests to cover behavior for API view, `create_customer`."""
 
     def test_should_return_401_for_unauthenticated_client_requests(
@@ -150,7 +164,7 @@ class TestCreateCustomerView:
 
 
 @pytest.mark.skip("not implemented - add API view `create_user_and_customer`")
-class TestCreateUserAndCustomerView:
+class TestCreateUserAndCustomerAPIView:
     """Tests to cover behavior for API view, `create_user_and_customer`."""
 
     def test_should_return_400_for_invalid_user_request_data(

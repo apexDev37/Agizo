@@ -54,6 +54,7 @@ omit = [
     "*/static/*",
     "*/templates/*",
     "*admin.py",
+    "*managers.py",
     "*asgi.py",
     "*urls.py",
     "*wsgi.py",
