@@ -52,7 +52,7 @@ class TestEnvironmentTargetSettings:
         self: Self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
         # Given
-        monkeypatch.delenv("ENVIRONMENT", raising=True)
+        monkeypatch.delenv("ENVIRONMENT", raising=False)
         expected = str(f"{SETTINGS_MODULE}.{Environment.PRODUCTION}")
 
         # When

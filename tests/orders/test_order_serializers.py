@@ -34,7 +34,7 @@ class TOrder(TypedDict):
     phone_number: str
 
 
-@pytest.mark.unit()
+@pytest.mark.unit
 @pytest.mark.parametrize("quantity", [0, -1])
 def test_should_validate_order_item_quantity_is_greater_or_equal_to_one(
     quantity: int,
@@ -46,7 +46,7 @@ def test_should_validate_order_item_quantity_is_greater_or_equal_to_one(
         OrderItemSerializer(data=item).is_valid(raise_exception=True)  # When
 
 
-@pytest.mark.unit()
+@pytest.mark.unit
 @pytest.mark.parametrize("price", [0, -10.05, 4.99])
 def test_should_validate_each_order_item_price_meets_required_price_minimum(
     price: int,
@@ -58,7 +58,7 @@ def test_should_validate_each_order_item_price_meets_required_price_minimum(
         OrderItemSerializer(data=item).is_valid(raise_exception=True)  # When
 
 
-@pytest.mark.unit()
+@pytest.mark.unit
 def test_should_validate_customer_order_contains_one_or_more_order_items() -> None:
     # Given
     data = TOrder(items=[], phone_number="+254700000000")

@@ -49,13 +49,13 @@ class TUserAndCustomer(TUser, TCustomer):
     ...
 
 
-@pytest.fixture()
+@pytest.fixture
 def user_data() -> TUser:
     """Represents valid client data for a user."""
     return TUser(user_email="johndoe@email.example", user_password="jd-secret-pwd")
 
 
-@pytest.fixture()
+@pytest.fixture
 def user() -> AbstractBaseUser:
     """Represents a user instance persisted in the DB."""
     return User.objects.create_user(
@@ -63,26 +63,26 @@ def user() -> AbstractBaseUser:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def customer_data() -> TCustomer:
     """Represents valid client data for a customer."""
     return TCustomer(name="John Doe", phone_number="+254000000000")
 
 
-@pytest.fixture()
+@pytest.fixture
 def user_customer_data(user_data: TUser, customer_data: TCustomer) -> TUserAndCustomer:
     """Represents valid client data for a user and customer."""
     return TUserAndCustomer(**user_data, **customer_data)
 
 
-@pytest.fixture()
+@pytest.fixture
 def request_factory() -> APIRequestFactory:
     """Represents a request instance from DRF's test utilities."""
     factory = APIRequestFactory(format="json")
     return factory
 
 
-@pytest.fixture()
+@pytest.fixture
 def customer_post_request(
     request_factory: APIRequestFactory,
     user: AbstractBaseUser,
@@ -94,7 +94,7 @@ def customer_post_request(
     return request
 
 
-@pytest.mark.django_db()
+@pytest.mark.django_db
 class TestCreateCustomerSerializer:
     """Tests to cover and isolate logic for `CreateCustomerSerializer`.
 
@@ -106,7 +106,7 @@ class TestCreateCustomerSerializer:
 
     _under_test: serializers.Serializer = CreateCustomerSerializer
 
-    @pytest.mark.unit()
+    @pytest.mark.unit
     def test_should_raise_validation_error_on_invalid_customer_data(
         self, customer_post_request: WSGIRequest
     ) -> None:
@@ -119,7 +119,7 @@ class TestCreateCustomerSerializer:
         with pytest.raises(serializers.ValidationError, match="blank"):  # Then
             _ = serializer.is_valid(raise_exception=True)  # When
 
-    @pytest.mark.unit()
+    @pytest.mark.unit
     def test_should_accept_and_serialize_valid_customer_data(
         self,
         customer_data: TCustomer,  # Given
@@ -133,7 +133,7 @@ class TestCreateCustomerSerializer:
         # Then
         assert serializer.is_valid(), serializer.errors
 
-    @pytest.mark.unit()
+    @pytest.mark.unit
     def test_should_create_customer_related_to_user_email_from_incoming_request(
         self,
         customer_data: TCustomer,
@@ -169,7 +169,7 @@ class TestCreateUserAndCustomerSerializer:
         with pytest.raises(serializers.ValidationError, match=""):  # Then
             _ = self._under_test(data=payload).is_valid(raise_exception=True)  # When
 
-    @pytest.mark.unit()
+    @pytest.mark.unit
     def test_should_accept_valid_serializer_user_and_customer_client_data(
         self, user_customer_data: TUserAndCustomer  # Given
     ) -> None:
@@ -180,7 +180,7 @@ class TestCreateUserAndCustomerSerializer:
         # Then
         assert serializer.is_valid(), serializer.errors
 
-    @pytest.mark.django_db()
+    @pytest.mark.django_db
     def test_should_persist_valid_user_and_customer_models_in_serializer(
         self, user_customer_data: TUserAndCustomer
     ) -> None:

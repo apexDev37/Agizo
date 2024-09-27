@@ -21,24 +21,24 @@ TEST_USER_PHONE_NO: str = "+245000000000"
 User = get_user_model()
 
 
-@pytest.fixture()
+@pytest.fixture
 def user() -> AbstractBaseUser:
     return User.objects.create_user(email=TEST_USER_EMAIL, password=TEST_USER_PASSWORD)
 
 
-@pytest.fixture()
+@pytest.fixture
 def customer(user: AbstractBaseUser) -> CustomerProfile:
     return CustomerProfile.objects.create(
         user=user, name=TEST_USER_NAME, phone_number=TEST_USER_PHONE_NO
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def order(customer: CustomerProfile) -> Order:
     return Order.objects.create(customer=customer)
 
 
-@pytest.mark.unit()
+@pytest.mark.unit
 def test_should_compute_amount_for_a_single_order_item() -> None:
     # Given
     item = OrderItem(name="Product A", price=100, quantity=3)
@@ -60,7 +60,7 @@ class TOrderItem(TypedDict):
     quantity: int
 
 
-@pytest.mark.django_db()
+@pytest.mark.django_db
 @pytest.mark.parametrize(
     ("items", "expected"),
     [

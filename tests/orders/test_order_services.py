@@ -11,7 +11,7 @@ class IncompatibleClient:
     ...
 
 
-@pytest.mark.unit()
+@pytest.mark.unit
 def test_should_raise_validation_error_for_unexpected_order_sms_client_type() -> None:
     # Given
     client = IncompatibleClient()

@@ -58,25 +58,25 @@ class TUserAndCustomer(TUser, TCustomer):
     ...
 
 
-@pytest.fixture()
+@pytest.fixture
 def user_data() -> TUser:
     """Represents valid client data for a user."""
     return TUser(user_email="johndoe@email.example", user_password="jd-secret-pwd")
 
 
-@pytest.fixture()
+@pytest.fixture
 def customer_data() -> TCustomer:
     """Represents valid client data for a customer."""
     return TCustomer(name="John Doe", phone_number="+254000000000")
 
 
-@pytest.fixture()
+@pytest.fixture
 def user_customer_data(user_data: TUser, customer_data: TCustomer) -> TUserAndCustomer:
     """Represents valid client data for a user and customer."""
     return TUserAndCustomer(**user_data, **customer_data)
 
 
-@pytest.fixture()
+@pytest.fixture
 def client() -> APIClient:
     """Represents an API client from DRF's test utilities."""
     client = APIClient()
@@ -87,7 +87,7 @@ def client() -> APIClient:
     return client
 
 
-@pytest.fixture()
+@pytest.fixture
 def user(user_data: TUser) -> TGenerator[AbstractBaseUser]:
     """Represents a user instance persisted in the DB."""
     user = User.objects.create_user(
@@ -97,7 +97,7 @@ def user(user_data: TUser) -> TGenerator[AbstractBaseUser]:
     user.delete()
 
 
-@pytest.fixture()
+@pytest.fixture
 def auth_client(client: APIClient, user: AbstractBaseUser) -> TGenerator[APIClient]:
     """Represents an authenticated API client from DRF's test utilities."""
     client.force_authenticate(user=user)

@@ -40,13 +40,13 @@ TEST_USER_PHONE_NO: str = "+245000000000"
 User = get_user_model()
 
 
-@pytest.fixture()
+@pytest.fixture
 def user() -> AbstractBaseUser:
     """Represents a user instance persisted in the DB."""
     return User.objects.create_user(email=TEST_USER_EMAIL, password=TEST_USER_PASSWORD)
 
 
-@pytest.fixture()
+@pytest.fixture
 def customer(user: AbstractBaseUser) -> CustomerProfile:
     """Represents a customer instance persisted in the DB."""
     return CustomerProfile.objects.create(
@@ -54,7 +54,7 @@ def customer(user: AbstractBaseUser) -> CustomerProfile:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def client() -> APIClient:
     """Represents an API client from DRF's test utilities."""
     client = APIClient()
@@ -65,14 +65,14 @@ def client() -> APIClient:
     return client
 
 
-@pytest.fixture()
+@pytest.fixture
 def auth_client(client: APIClient, user: AbstractBaseUser) -> APIClient:
     """Represents an authenticated API client from DRF's test utilities."""
     client.force_authenticate(user=user)
     return client
 
 
-@pytest.fixture()
+@pytest.fixture
 def mock_send_sms(mocker: MockerFixture) -> MockType:
     """Mocks an SMS notification request sent to a customer."""
     mock_response = _mock_sms_send_response()
