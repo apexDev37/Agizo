@@ -24,12 +24,13 @@ See:
 from pathlib import Path
 
 import environ
+import environ.compat
 
 from config.settings.common.base import BASE_DIR
 
 # Set default project-wide ENV casting.
 env = environ.FileAwareEnv(
-    DB_ENGINE=(str, None),
+    DB_ENGINE=(str, environ.compat.DJANGO_POSTGRES),
     DB_HOST=(str, None),
     DB_NAME=(str, None),
     DB_PASSWORD=(str, None),
