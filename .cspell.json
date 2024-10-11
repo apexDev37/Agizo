@@ -24,6 +24,7 @@
     "DRF",
     "env",
     "galkaev",
+    "gunicorn",
     "hadolint",
     "healthcheck",
     "isort",
@@ -45,7 +46,9 @@
     "shfmt",
     "shm",
     "snyk",
-    "tryceratops"
+    "tryceratops",
+    "whitenoise",
+    "WSGI"
   ],
   "flagWords": [
     "hte"
