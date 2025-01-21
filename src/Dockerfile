@@ -11,7 +11,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.3.8" \
+  version="0.4.0" \
   license="MIT"
 
 WORKDIR /usr/src/app
@@ -67,7 +67,7 @@ EOF
 # set user-writeable, pytest cache dir for local target stages.
 ENV PYTEST_ADDOPTS="-o cache_dir=/home/appuser/.pytest_cache"
 
-FROM final-stage AS rootless
+FROM build-stage AS rootless
 
 ARG UID=1000
 RUN <<EOF
@@ -105,5 +105,18 @@ ENV ENVIRONMENT=develop
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/dev.txt,target=./requirements/dev.txt \
     python3 -m pip install -r ./requirements/dev.txt
+
+USER appuser
+
+# ======================================================================================
+# Environment: production (inherits from rootless)
+# ======================================================================================
+
+FROM rootless AS env-production
+
+ENV ENVIRONMENT=production
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=./requirements/prod.txt,target=./requirements/prod.txt \
+    python3 -m pip install -r ./requirements/prod.txt
 
 USER appuser
