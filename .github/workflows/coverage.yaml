@@ -40,15 +40,10 @@
 
       steps:
         - uses: actions/checkout@v4
-        - name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v3
+        - name: Set up Python CI
+          uses: ./.github/actions/setup-python-ci
           with:
             python-version: ${{ matrix.python-version }}
-
-        - name: Install package manager
-          run: python3 -m pip install -r requirements/pip.txt
-        - name: Install CI dependencies
-          run: python3 -m pip install -r requirements/ci.txt
 
         - name: Run tests + coverage
           env:
