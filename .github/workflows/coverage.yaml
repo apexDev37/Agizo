@@ -1,12 +1,20 @@
 ---
-  name: Python Coverage
+  name: coverage
   on:
     push:
       branches:
         - main
+      paths:
+        - 'src/**.py'
+        - 'tests/**.py'
+        - '.github/workflows/coverage.yaml'
     pull_request:
       branches:
         - "**"
+      paths:
+        - 'src/**.py'
+        - 'tests/**.py'
+        - '.github/workflows/coverage.yaml'
 
   jobs:
     # TODO(apexDev37): Define reusable setup workflow.
