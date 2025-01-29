@@ -21,7 +21,6 @@ cryptography==44.0.0
     #   josepy
     #   mozilla-django-oidc
     #   pyopenssl
-django==4.2.18
     # via
     #   -c /home/apex-predator/apexDev/py/django/agizo/requirements/constraints.txt
     #   djangorestframework

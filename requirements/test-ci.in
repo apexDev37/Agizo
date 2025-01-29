@@ -1,18 +1,5 @@
-# Requirements for CI test runs.
-#
-# ********************************** HACK **************************************
-#
-# Include all base (excluding Django) + test requirements.
-# This file allows us to omit `Django` to prevent dependency
-# version conflicts and allow `tox` to manage `Django` versions.
+# Requirements for CI tests via tox.
 -c constraints.txt
 
-django-environ              # Configure Django with environment variables.
-psycopg[binary]             # Modern implementation of a PostgreSQL adapter for Python.
-djangorestframework         # Flexible toolkit for building Web APIs.
-africastalking              # Official SDK to access AT APIs for Python.
-mozilla-django-oidc         # Lightweight OpenID Connect library for Django.
-pytest-cov                  # pytest extension for code coverage statistics.
-pytest-django               # pytest extension for better Django support.
-pytest-xdist                # pytest extension to distribute tests across multiple CPUs.
-pytest-mock                 # pytest extension to provide a mocker fixture.
+-r base.txt                 # Core dependencies for this app.
+-r test.txt                 # Core and testing dependencies for this app.
