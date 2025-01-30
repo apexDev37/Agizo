@@ -9,6 +9,7 @@
     "**/.devcontainer/**"
   ],
   "words": [
+    "accesslog",
     "adminer",
     "AFRICAS",
     "africastalking",
@@ -25,12 +26,14 @@
     "DRF",
     "env",
     "galkaev",
+    "gthread",
     "gunicorn",
     "hadolint",
     "healthcheck",
     "isort",
     "isready",
     "JWKS",
+    "keepalive",
     "markdownlint",
     "mypy",
     "noqa",
