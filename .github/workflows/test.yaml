@@ -69,9 +69,13 @@
             DEBUG: ${{ vars.DEBUG }}
             ENVIRONMENT: ${{ vars.ENVIRONMENT }}
             # secrets variable.
+            AFRICAS_TALKING_API_KEY: ${{ secrets.AFRICAS_TALKING_API_KEY }}
+            AFRICAS_TALKING_USERNAME: ${{ secrets.AFRICAS_TALKING_USERNAME }}
             DB_NAME: ${{ secrets.DB_NAME }}
             DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
             DB_USER: ${{ secrets.DB_USER }}
+            OIDC_RP_CLIENT_ID: ${{ secrets.OIDC_RP_CLIENT_ID }}
+            OIDC_RP_CLIENT_SECRET: ${{ secrets.OIDC_RP_CLIENT_SECRET }}
             SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
           run: tox run
