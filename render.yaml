@@ -1,0 +1,56 @@
+#################################################################
+# Agizo Blueprint, render.yaml                                  #
+#################################################################
+
+previews:
+  generation: off
+
+services:
+  - type: web
+    name: agizo-web
+    runtime: docker
+    region: frankfurt
+    plan: free
+    autoDeploy: false
+    repo: https://github.com/apexDev37/agizo
+    branch: main
+    dockerContext: ./
+    dockerfilePath: ./src/Dockerfile
+    numInstances: 1
+    healthCheckPath: /admin/login/
+    maxShutdownDelaySeconds: 90
+    buildFilter:
+      paths:
+        - ./src/
+        - ./requirements/
+      ignoredPaths:
+      - ./requirements/**/*.in  # Ignore all `.in` files
+      - ./requirements/**/*.txt  # Ignore all `.txt` files
+      - '!./requirements/base.txt'  # Exclude `base.txt`
+      - '!./requirements/prod.txt'  # Exclude `prod.txt`
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: postgres
+          property: connectionString
+      - key: DEBUG
+        value: "False"
+      - key: ENVIRONMENT
+        value: "production"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: AFRICAS_TALKING_API_KEY
+        sync: false
+      - key: AFRICAS_TALKING_USERNAME
+        sync: false
+      - key: OIDC_RP_CLIENT_ID
+        sync: false
+      - key: OIDC_RP_CLIENT_SECRET
+        sync: false
+
+databases:
+  - name: postgres
+    region: frankfurt
+    plan: free
+    postgresMajorVersion: "16"
+    ipAllowList: []  # Only allow internal connections.
