@@ -283,6 +283,15 @@ pytest --cov --cov-config=pyproject.toml tests/
 permissions in the container's working dir to define the data file `.coverage`
 used by `coverage` to store metrics and derive report data.
 
+## Deployment
+
+You can access a [live] version of the application using the URL provided in
+the repository **About** section. The project is deployed to the PaaS (Platform
+as a Service), [Render], using their IaC (Infrastructure as code) model called
+blueprints. Blueprints enables for resources to be defined in a single config
+file, `render.yaml`, to support reproducible and versioned deployment and
+infrastructure specs.
+
 ## Licensing
 
 To make a repository open source, you must license it so that others may freely
@@ -313,6 +322,10 @@ Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdow
 
 <!-- Developing -->
 [pytest]: https://docs.pytest.org/en/stable/contents.html
+
+<!-- Deployment -->
+[live]: https://agizo-web.onrender.com
+[Render]: https://render.com/
 
 <!-- Licensing links -->
 [MIT license]: https://en.wikipedia.org/wiki/MIT_License
