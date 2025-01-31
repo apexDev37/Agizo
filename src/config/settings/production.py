@@ -33,6 +33,10 @@ if DEFAULT_ENV not in os.environ:
     errmsg = "Required DATABASE_URL environment variable not set"
     raise ImproperlyConfigured(errmsg)
 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
 # Override to use DB URL expected in target PaaS.
 DATABASES["default"] = dj_database_url.config(
     conn_max_age=500,
