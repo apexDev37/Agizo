@@ -18,16 +18,21 @@ services:
     dockerfilePath: ./src/Dockerfile
     numInstances: 1
     healthCheckPath: /admin/login/
-    maxShutdownDelaySeconds: 90
     buildFilter:
       paths:
-        - ./src/
-        - ./requirements/
+        - ./src
+        - ./requirements
       ignoredPaths:
-      - ./requirements/**/*.in  # Ignore all `.in` files
-      - ./requirements/**/*.txt  # Ignore all `.txt` files
-      - '!./requirements/base.txt'  # Exclude `base.txt`
-      - '!./requirements/prod.txt'  # Exclude `prod.txt`
+      - ./requirements/**/*.in
+      # Ignore all, except `base` and `prod` requirements
+      - ./requirements/**/ci.txt
+      - ./requirements/**/constraints.txt
+      - ./requirements/**/dev.txt
+      - ./requirements/**/test.txt
+      - ./requirements/**/test-ci.txt
+      - ./requirements/**/pip.txt
+      - ./requirements/**/pip-tools.txt
+      - ./requirements/**/quality.txt
     envVars:
       - key: DATABASE_URL
         fromDatabase:
