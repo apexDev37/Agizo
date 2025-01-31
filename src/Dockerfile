@@ -128,5 +128,5 @@ USER appuser
 
 # expose port and run gunicorn with non-root user.
 EXPOSE 8000
-ENTRYPOINT ["gunicorn"]
-CMD ["--config", "gunicorn.config.py", "config.wsgi:application"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD ["gunicorn", "--config", "gunicorn.config.py", "config.wsgi:application"]
