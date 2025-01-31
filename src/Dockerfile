@@ -11,10 +11,12 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.4.0" \
+  version="0.5.0" \
   license="MIT"
 
-WORKDIR /usr/src/app
+ENV HOME=/usr/src/app
+ENV APP=$HOME/src
+WORKDIR $APP
 
 # set python-specific env variables.
 ENV PYTHONUNBUFFERED=1
@@ -37,15 +39,15 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 FROM build-stage AS final-stage
 
-COPY ./src/ /usr/src/app/src
+COPY ./src/ $APP
 
 # expose and run django dev server with non-root user.
 EXPOSE 8000
 ENTRYPOINT ["python3"]
-CMD ["src/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["manage.py", "runserver", "0.0.0.0:8000"]
 
 # ======================================================================================
-# Least-priviledge user mode (inherits from final stage)
+# Least-privilege user mode (inherits from final stage)
 # ======================================================================================
 
 FROM final-stage AS local-rootless
@@ -119,4 +121,12 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/prod.txt,target=./requirements/prod.txt \
     python3 -m pip install -r ./requirements/prod.txt
 
+COPY ./src/ $APP
+RUN chmod +x "$APP/docker-entrypoint.sh"
+
 USER appuser
+
+# expose port and run gunicorn with non-root user.
+EXPOSE 8000
+ENTRYPOINT ["gunicorn"]
+CMD ["--config", "gunicorn.config.py", "config.wsgi:application"]
