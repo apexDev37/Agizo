@@ -8,7 +8,7 @@ graceful shutdowns, and logs output to stdout.
 import multiprocessing
 
 bind = "0.0.0.0:10000"
-workers = multiprocessing.cpu_count() * 2 + 1  # Recommended formula for workers
+workers = multiprocessing.cpu_count() + 1
 threads = 2  # Handle blocking I/O with threads
 worker_class = "gthread"
 timeout = 30
