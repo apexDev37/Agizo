@@ -9,6 +9,8 @@ from django.urls import include, path
 
 import accounts
 import accounts.views
+import config
+import config.views
 from config.constants import ENABLE_DEBUG_TOOLBAR
 
 urlpatterns = [
@@ -17,6 +19,7 @@ urlpatterns = [
     path("api/", include("orders.urls", namespace="orders")),
     path("oidc/", include("mozilla_django_oidc.urls")),
     path("", accounts.views.home_view, name="home"),
+    path("meta/health/", config.views.health_check, name="health_check"),
 ]
 
 if ENABLE_DEBUG_TOOLBAR:

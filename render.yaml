@@ -17,7 +17,7 @@ services:
     dockerContext: ./
     dockerfilePath: ./src/Dockerfile
     numInstances: 1
-    healthCheckPath: /admin/login/
+    healthCheckPath: /meta/health/
     buildFilter:
       paths:
         - ./src
