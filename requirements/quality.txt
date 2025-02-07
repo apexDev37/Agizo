@@ -12,9 +12,9 @@ asgiref==3.8.1
     #   django
 bandit==1.8.2
     # via -r requirements/quality.in
-black==24.10.0
+black==25.1.0
     # via -r requirements/quality.in
-certifi==2024.12.14
+certifi==2025.1.31
     # via
     #   -r /home/apex-predator/apexDev/py/django/agizo/requirements/test.txt
     #   requests
@@ -42,7 +42,7 @@ cryptography==44.0.0
     #   pyopenssl
 distlib==0.3.9
     # via virtualenv
-django==4.2.18
+django==4.2.19
     # via
     #   -c /home/apex-predator/apexDev/py/django/agizo/requirements/constraints.txt
     #   -r /home/apex-predator/apexDev/py/django/agizo/requirements/test.txt
@@ -58,9 +58,9 @@ execnet==2.1.1
     # via
     #   -r /home/apex-predator/apexDev/py/django/agizo/requirements/test.txt
     #   pytest-xdist
-filelock==3.16.1
+filelock==3.17.0
     # via virtualenv
-identify==2.6.5
+identify==2.6.6
     # via pre-commit
 idna==3.10
     # via
@@ -70,9 +70,9 @@ iniconfig==2.0.0
     # via
     #   -r /home/apex-predator/apexDev/py/django/agizo/requirements/test.txt
     #   pytest
-isort==5.13.2
+isort==6.0.0
     # via -r requirements/quality.in
-josepy==1.14.0
+josepy==1.15.0
     # via
     #   -r /home/apex-predator/apexDev/py/django/agizo/requirements/test.txt
     #   mozilla-django-oidc
@@ -82,7 +82,7 @@ mdurl==0.1.2
     # via markdown-it-py
 mozilla-django-oidc==4.0.1
     # via -r /home/apex-predator/apexDev/py/django/agizo/requirements/test.txt
-mypy==1.14.1
+mypy==1.15.0
     # via -r requirements/quality.in
 mypy-extensions==1.0.0
     # via
@@ -97,7 +97,7 @@ packaging==24.2
     #   pytest
 pathspec==0.12.1
     # via black
-pbr==6.1.0
+pbr==6.1.1
     # via stevedore
 platformdirs==4.3.6
     # via
@@ -107,7 +107,7 @@ pluggy==1.5.0
     # via
     #   -r /home/apex-predator/apexDev/py/django/agizo/requirements/test.txt
     #   pytest
-pre-commit==4.0.1
+pre-commit==4.1.0
     # via -r requirements/quality.in
 psycopg==3.2.4
     # via
@@ -151,7 +151,7 @@ requests==2.32.3
     #   mozilla-django-oidc
 rich==13.9.4
     # via bandit
-ruff==0.9.2
+ruff==0.9.5
     # via -r requirements/quality.in
 schema==0.7.7
     # via
@@ -175,3 +175,6 @@ urllib3==2.3.0
     #   requests
 virtualenv==20.29.1
     # via pre-commit
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools

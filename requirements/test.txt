@@ -10,7 +10,7 @@ asgiref==3.8.1
     # via
     #   -r /home/apex-predator/apexDev/py/django/agizo/requirements/base.txt
     #   django
-certifi==2024.12.14
+certifi==2025.1.31
     # via
     #   -r /home/apex-predator/apexDev/py/django/agizo/requirements/base.txt
     #   requests
@@ -30,7 +30,7 @@ cryptography==44.0.0
     #   josepy
     #   mozilla-django-oidc
     #   pyopenssl
-django==4.2.18
+django==4.2.19
     # via
     #   -c /home/apex-predator/apexDev/py/django/agizo/requirements/constraints.txt
     #   -r /home/apex-predator/apexDev/py/django/agizo/requirements/base.txt
@@ -50,7 +50,7 @@ idna==3.10
     #   requests
 iniconfig==2.0.0
     # via pytest
-josepy==1.14.0
+josepy==1.15.0
     # via
     #   -r /home/apex-predator/apexDev/py/django/agizo/requirements/base.txt
     #   mozilla-django-oidc
