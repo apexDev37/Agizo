@@ -21,8 +21,7 @@ SECURE_BROWSER_XSS_FILTER = True
 # ========================= #
 # Tell browser to load your site over HTTPS only.
 # Note: Browsers will refuse to allow users to bypass insecure warnings to connect.
-# TODO(apexDev37): Update `SECURE_HSTS_SECONDS` to recommended minimum after testing nothing breaks.
-SECURE_HSTS_SECONDS = 3600
+SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
