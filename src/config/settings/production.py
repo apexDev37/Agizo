@@ -18,7 +18,6 @@ from config.settings.common.base import *  # noqa: F403
 from config.settings.common.database import DATABASES
 from config.settings.common.security import (
     CSRF_COOKIE_SECURE,
-    SECURE_BROWSER_XSS_FILTER,
     SECURE_CONTENT_TYPE_NOSNIFF,
     SECURE_HSTS_INCLUDE_SUBDOMAINS,
     SECURE_HSTS_PRELOAD,

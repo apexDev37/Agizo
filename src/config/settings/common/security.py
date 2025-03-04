@@ -10,12 +10,6 @@ For more details about this module
 See: https://docs.djangoproject.com/en/4.2/topics/security/
 """
 
-# ================ #
-# X-XSS-Protection #
-# ================ #
-# Tell browser to block pages with detected XSS attacks.
-SECURE_BROWSER_XSS_FILTER = True
-
 # ========================= #
 # Strict-Transport-Security #
 # ========================= #
