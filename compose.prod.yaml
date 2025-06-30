@@ -1,0 +1,21 @@
+---
+services:
+  web:
+    image: agizo:prod
+    build:
+      target: env-production
+    container_name: django_web_prod
+    restart: on-failure:5
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=25M
+    cap_drop:
+      # Enforce principle of least privilege
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      # postgres://user:password@host:port/database
+      - DATABASE_URL=${DATABASE_URL:?You must set DATABASE_URL}
+    ports:
+      - "127.0.0.1:8001:8001"
