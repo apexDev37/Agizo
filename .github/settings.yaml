@@ -2,13 +2,12 @@
 # Repository settings.
 # ************************ #
 
-
 # == Top-level settings ========================================================
 
 repository:
-  name: Agizo
+  name: agizo
   description: "A lean DevOps inspired template for perfectionists, with deadlines."
-  homepage: https://github.com/apexDev37/Agizo
+  homepage: https://github.com/eugengi/agizo
   private: false
   has_issues: true
   has_projects: true

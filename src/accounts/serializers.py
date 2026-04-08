@@ -49,7 +49,7 @@ class CreateCustomerSerializer(serializers.ModelSerializer):
         return CustomerProfile.objects.create(user=user, **validated_data)
 
 
-# TODO(apexDev37): refactor
+# TODO(eugengi): refactor
 # Ideally, user related fields should be in a dedicated `UserSerializer`.
 # Given the single use case to add `customers`, this is all we need.
 # See: https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects

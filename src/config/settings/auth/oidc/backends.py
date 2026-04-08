@@ -17,7 +17,7 @@ from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 class CustomOIDCAuthBackend(OIDCAuthenticationBackend):
     """Custom OIDC auth backend for Django project.
 
-    @TODO(apexDev37)
+    @TODO(eugengi)
     Consider overriding `update_user` for new or changed user claims.
     """
 

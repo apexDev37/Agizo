@@ -24,10 +24,10 @@ maintainers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/apexDev37/Agizo"
-Repository = "https://github.com/apexDev37/Agizo"
-Source = "https://github.com/apexDev37/Agizo/tree/main/src"
-"Bug Reports" = "https://github.com/apexDev37/Agizo/issues"
+Homepage = "https://github.com/eugengi/agizo"
+Repository = "https://github.com/eugengi/agizo"
+Source = "https://github.com/eugengi/agizo/tree/main/src"
+"Bug Reports" = "https://github.com/eugengi/agizo/issues"
 
 # == Bandit ====================================================================
 

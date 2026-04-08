@@ -1,6 +1,9 @@
 # Agizo
+
 <!-- markdownlint-disable MD013 -->
-[![Inline docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg?branch=master)](https://github.com/apexDev37/Agizo/blob/main/README.md) [![Python QA - Tests](https://github.com/apexDev37/Agizo/actions/workflows/test.yaml/badge.svg)](https://github.com/apexDev37/Agizo/actions/workflows/test.yaml) [![Python QA - Lint](https://github.com/apexDev37/Agizo/actions/workflows/lint.yaml/badge.svg)](https://github.com/apexDev37/Agizo/actions/workflows/lint.yaml) [![codecov](https://codecov.io/gh/apexDev37/Agizo/graph/badge.svg?token=8B6wXl47ZD)](https://codecov.io/gh/apexDev37/Agizo) [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/apexDev37/Agizo/main.svg)](https://results.pre-commit.ci/latest/github/apexDev37/Agizo/main) [![Python version](https://img.shields.io/badge/python-3.12-blue?style=flat&logo=python&logoColor=yellow)](https://github.com/apexDev37/Agizo/blob/main/tox.ini#L5) [![docker](https://img.shields.io/badge/docker-enabled-blue?style=flat&logo=docker&labelColor=white)](https://www.docker.com/products/docker-desktop/) [![Known Vulnerabilities](https://snyk.io/test/github/apexDev37/Agizo/main/badge.svg)](https://snyk.io/test/github/apexDev37/Agizo) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue.svg)](http://makeapullrequest.com) [![Activity](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/apexDev37/Agizo/commits/main) [![Versioning](https://img.shields.io/badge/versioning-semver-black?logo=semver)](https://semver.org/) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit) [![Linter: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![Style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+[![Inline docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg?branch=master)](https://github.com/eugengi/agizo/blob/main/README.md) [![Python QA - Tests](https://github.com/eugengi/agizo/actions/workflows/test.yaml/badge.svg)](https://github.com/eugengi/agizo/actions/workflows/test.yaml) [![Python QA - Lint](https://github.com/eugengi/agizo/actions/workflows/lint.yaml/badge.svg)](https://github.com/eugengi/agizo/actions/workflows/lint.yaml) [![codecov](https://codecov.io/gh/eugengi/agizo/graph/badge.svg?token=8B6wXl47ZD)](https://codecov.io/gh/eugengi/agizo) [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/eugengi/agizo/main.svg)](https://results.pre-commit.ci/latest/github/eugengi/agizo/main) [![Python version](https://img.shields.io/badge/python-3.12-blue?style=flat&logo=python&logoColor=yellow)](https://github.com/eugengi/agizo/blob/main/tox.ini#L5) [![docker](https://img.shields.io/badge/docker-enabled-blue?style=flat&logo=docker&labelColor=white)](https://www.docker.com/products/docker-desktop/) [![Known Vulnerabilities](https://snyk.io/test/github/eugengi/agizo/main/badge.svg)](https://snyk.io/test/github/eugengi/agizo) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue.svg)](http://makeapullrequest.com) [![Activity](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/eugengi/agizo/commits/main) [![Versioning](https://img.shields.io/badge/versioning-semver-black?logo=semver)](https://semver.org/) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit) [![Linter: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![Style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 <!-- markdownlint-enable MD013 -->
 
 > A simple backend RESTful service to process orders and notify customers.
@@ -18,32 +21,35 @@ highly encouraged. I always eager to learn and hear from the community❤
 Learn more about the Django framework from the official [documentation].
 
 ### Project Structure
->
+
 > 🧭 Simple layout overview that highlights essential areas of the project for
-quick reference.
+> quick reference.
+
 <!-- markdownlint-disable MD013 -->
+
 ```markdown
 .
-├── .github                             # Hosts workflows and actions (CI/CD)
-├── db                                  # Hosts db related config files.
+├── .github # Hosts workflows and actions (CI/CD)
+├── db # Hosts db related config files.
 │   ├── config
 │   │   └── connection-params.yaml
 │   ├── secrets
 │   └── storage.yaml
-├── requirements                        # Hosts all project dependencies.
-├── src                                 # Hosts project source code (implicit namespace package).
-│   ├── config                          # The Django project (package).
-│   │   ├── settings                    # Django project environment settings (package).
+├── requirements # Hosts all project dependencies.
+├── src # Hosts project source code (implicit namespace package).
+│   ├── config # The Django project (package).
+│   │   ├── settings # Django project environment settings (package).
 │   ├── Dockerfile
 │   └── manage.py
-├── test_utils                          # Importable test utilities (package).
-├── tests                               # Host all project tests (implicit namespace package).
-├── Makefile                            # Base project automation recipes.
-├── README.md  
-├── compose.yaml                        # Base local compose app model.
-├── pyproject.toml                      # Hosts project tooling configs.
-└── tox.ini                             # Automated test orchestration and interface.
+├── test_utils # Importable test utilities (package).
+├── tests # Host all project tests (implicit namespace package).
+├── Makefile # Base project automation recipes.
+├── README.md
+├── compose.yaml # Base local compose app model.
+├── pyproject.toml # Hosts project tooling configs.
+└── tox.ini # Automated test orchestration and interface.
 ```
+
 <!-- markdownlint-enable MD013 -->
 
 ## Installing / Getting started
@@ -57,7 +63,7 @@ This is an overview of the minimal setup needed to get started.
 - IDE/Code/Text editor ([PyCharm], [VScode], [Vim], etc)
 
 Follow these tutorials to set up Docker and Compose on either [Mac]
-or [Linux].  
+or [Linux].
 I'd recommend Microsoft's documentation to set up [Docker on WSL2] if you're on Windows.
 
 ### Local Setup
@@ -70,12 +76,12 @@ You can clone this repo with the following command.
 
 ```bash
 # cd your/desired/target/dir
-git clone git@github.com:apexDev37/Agizo.git my-project
+git clone git@github.com:eugengi/agizo.git my-project
 cd my-project
 ```
 
 > 🛈 This will clone the repository to a target dir on your host machine with
- a custom name `my-project/` and navigate into its root dir.
+> a custom name `my-project/` and navigate into its root dir.
 
 ### Configuration
 
@@ -89,7 +95,7 @@ After the config files are created, replace the placeholders and empty `txt`
 files with your custom values.
 
 > 🛈 `secret` files should store sensitive or confidential data, whereas `env`
-files can contain other environment-related config.  
+> files can contain other environment-related config.
 
 - Create required config files
 
@@ -98,10 +104,10 @@ make envs && make secrets  # idempotent operations.
 ```
 
 > 🛈 This will create and output all config files generated from available
-sample files in their target directory
-(ie. `django.env.example` -> `django.env`).  
+> sample files in their target directory
+> (ie. `django.env.example` -> `django.env`).
 
-- Update placeholder config values  
+- Update placeholder config values
 
 > 💡 `secret` files intended to store keys or passwords are auto-populated with
 > a random, cryptographic, base64-encoded value.
@@ -119,7 +125,7 @@ docker compose up -d
 ```
 
 > 🛈 This will create and start the Django and Postgres instances in the same
-network defined in the base `compose` file.
+> network defined in the base `compose` file.
 
 Once the containers have been created and started, you can access the
 application at <http://localhost:8000/>
@@ -142,7 +148,7 @@ mkvirtualenv -p python3.12 agizo-py312
 ```
 
 > 🛈 This will create a fully managed venv and activate the virtual environment
-by default.
+> by default.
 
 If your environment is not activated from the above command or you encounter
 any issue, manually activate it with the following command.
@@ -156,7 +162,7 @@ workon agizo-py312
 ### Dependencies
 
 > ⚠ All following commands assume execution occurs with an active virtual env
-at the project root.
+> at the project root.
 
 - Install requirements for development.
 
@@ -165,7 +171,7 @@ make requirements
 ```
 
 > 🛈 This will install and sync the active environment with the
-pinned versions for your development dependencies, `requirements/dev.txt`.
+> pinned versions for your development dependencies, `requirements/dev.txt`.
 
 - Set up `pre-commit` hooks
 
@@ -174,8 +180,8 @@ pre-commit install --install-hooks
 ```
 
 > 🛈 This one time setup installs the `pre-commit` script in your hidden
-`git/hooks` directory and installs all hook environments defined in the config
-file.
+> `git/hooks` directory and installs all hook environments defined in the config
+> file.
 
 ### Runtime
 
@@ -219,8 +225,8 @@ make -f compose.Makefile watch.test
 ```
 
 > 🛈 This will run all core compose services in `testing` mode to provide all
-test dependencies and support both running and syncing tests written locally
-into your `web` svc.
+> test dependencies and support both running and syncing tests written locally
+> into your `web` svc.
 
 - Discover and run all project tests with `pytest`
 
@@ -230,7 +236,7 @@ docker compose exec --user appuser -it web pytest tests/
 ```
 
 > 🛈 This runs all project tests defined in `tests/` in interactive mode to
-output the test results in your terminal.
+> output the test results in your terminal.
 
 ### Writing Tests
 
@@ -243,25 +249,27 @@ to prevent module resolution conflicts: `test_<app>_<module_under_test>`.
 - Example
 
 <!-- markdownlint-disable MD013 -->
+
 ```markdown
 .
 ├── tests
-│   ├── accounts  # Maps to accounts app (package).
+│   ├── accounts # Maps to accounts app (package).
 │   │   ├── test_account_serializers.py
 │   │   └── test_account_views.py
-│   ├── config  # Maps to Django project (package).
+│   ├── config # Maps to Django project (package).
 │   │   └── test_utils.py
-│   └── orders  # Maps to orders app (package).
-│       ├── test_order_models.py
-│       ├── test_order_services.py
-│       └── test_order_views.py│
+│   └── orders # Maps to orders app (package).
+│   ├── test_order_models.py
+│   ├── test_order_services.py
+│   └── test_order_views.py│
 ```
+
 <!-- markdownlint-enable MD013 -->
 
 > 🛈 Given that pytest recommends not making tests importable (packages), but
-standalone scripts, the chosen naming convention prevents name resolution
-conflicts during test discovery that may have been averted by using a
-`__init__.py` file.
+> standalone scripts, the chosen naming convention prevents name resolution
+> conflicts during test discovery that may have been averted by using a
+> `__init__.py` file.
 
 ### Coverage
 
@@ -280,8 +288,8 @@ pytest --cov --cov-config=pyproject.toml tests/
 ```
 
 > 🛈 The `--user` flag is currently required to given `SQLite` read/write
-permissions in the container's working dir to define the data file `.coverage`
-used by `coverage` to store metrics and derive report data.
+> permissions in the container's working dir to define the data file `.coverage`
+> used by `coverage` to store metrics and derive report data.
 
 ## Deployment
 
@@ -303,9 +311,11 @@ its job. There is no need to format nicely because it shouldn't be seen.
 Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax"
 
 <!-- Introduction links -->
+
 [documentation]: https://docs.djangoproject.com/en/
 
 <!-- Installing / Getting Started links -->
+
 [Git]: https://git-scm.com/
 [Docker Desktop]: https://www.docker.com/products/docker-desktop/
 [Mac]: https://docs.docker.com/desktop/install/mac-install/
@@ -318,15 +328,19 @@ Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdow
 [secrets]: https://docs.docker.com/compose/use-secrets/
 
 <!-- Developing -->
+
 [PEP 405 compliant]: https://peps.python.org/pep-0405/#specification
 
 <!-- Developing -->
+
 [pytest]: https://docs.pytest.org/en/stable/contents.html
 
 <!-- Deployment -->
+
 [live]: https://agizo-web.onrender.com
 [Render]: https://render.com/
 
 <!-- Licensing links -->
+
 [MIT license]: https://en.wikipedia.org/wiki/MIT_License
 [here]: https://choosealicense.com/licenses/mit/

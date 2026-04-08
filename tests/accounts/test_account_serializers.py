@@ -98,7 +98,7 @@ def customer_post_request(
 class TestCreateCustomerSerializer:
     """Tests to cover and isolate logic for `CreateCustomerSerializer`.
 
-    @TODO(apexDev37): Mock request context.
+    @TODO(eugengi): Mock request context.
     The `owner` field on the serializer under test introduces dependencies to
     setup a `User` and request for each test. This required `request` context
     should be mocked for simple validation tests that should be DB independent.
@@ -154,7 +154,7 @@ class TestCreateUserAndCustomerSerializer:
 
     _under_test: serializers.Serializer = CreateUserAndCustomerSerializer
 
-    # TODO(apexDev37): Use parametrization to target single fields.
+    # TODO(eugengi): Use parametrization to target single fields.
     # This design is not flexible, hence why `match` is blank.
     # Handle invalid fields one per test to resolve this.
     def test_should_raise_validation_error_on_invalid_user_data(
